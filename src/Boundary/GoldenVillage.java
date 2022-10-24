@@ -1,10 +1,17 @@
 package Boundary;
 
+import Controller.UserManager;
+
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class GoldenVillage {
 	public static void main(String[] args) {
         // Declaration of variables
+        String CurPath = Paths.get("").toAbsolutePath().toString() + "/";
+        UserManager userManager = new UserManager();
+        userManager.Load(CurPath);
+
         int choice;
         Scanner sc = new Scanner(System.in);
 
@@ -36,7 +43,7 @@ public class GoldenVillage {
 
                     // If username and password match, then show the actions
                     // Correct username = "USERNAME1", correct password = "PASSWORD123"
-                    if (userName.equals("USERNAME1") && passWord.equals("PASSWORD123")) {
+                    if (userManager.Login(userName, passWord)) {
                         System.out.println("\n========== Cinema Staff ==========\n");
                         System.out.println("Please select what you want to do:");
                         System.out.println("1. Create/Update/Remove movie listing");
