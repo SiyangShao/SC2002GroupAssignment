@@ -1,26 +1,38 @@
 package Model;
 
 public class Seat {
-	private String seatNo;
-	private int MovieID;
-	
-	public Seat() {
-		
-	}
+    protected int seatNo;
+    protected int MovieID;
 
-	public String getSeatNo() {
-		return seatNo;
-	}
+    protected double basePrice;
 
-	public void setSeatNo(String seatNo) {
-		this.seatNo = seatNo;
-	}
+    public Seat(int seatNo, int MovieID, double basePrice) {
+        setSeatNo(seatNo);
+        setMovieID(MovieID);
+        setBasePrice(basePrice);
+    }
 
-	public int getMovieID() {
-		return MovieID;
-	}
+    public int getSeatNo() {
+        return seatNo;
+    }
 
-	public void setMovieID(int movieID) {
-		MovieID = movieID;
-	}
+    public void setSeatNo(int seatNo) {
+        this.seatNo = seatNo;
+    }
+
+    public int getMovieID() {
+        return MovieID;
+    }
+
+    public void setMovieID(int movieID) {
+        MovieID = movieID;
+    }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
 }
