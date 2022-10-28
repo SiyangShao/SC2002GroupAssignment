@@ -1,6 +1,10 @@
 package Boundary;
 
+import Controller.MovieManager;
 import Controller.UserManager;
+import Model.Movie;
+import Model.MovieStatus;
+import Model.MovieType;
 
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -11,10 +15,11 @@ public class GoldenVillage {
         String CurPath = Paths.get("").toAbsolutePath().toString() + "/";
         UserManager userManager = new UserManager();
         userManager.Load(CurPath);
+        MovieManager.getInstance().Load(CurPath);
 
         int choice;
         Scanner sc = new Scanner(System.in);
-
+        
         // Displaying the main menu
         do {
             System.out.println("\n========== Main Menu ==========\n");
@@ -31,7 +36,7 @@ public class GoldenVillage {
                 
                 // If cinema staff
                 case 1: {
-                    String userName, passWord;
+                	String userName, passWord;
 
                     // Need to login first
                     System.out.println("\n========== Cinema Staff ==========\n");
@@ -40,46 +45,51 @@ public class GoldenVillage {
                     System.out.println("Please enter staff password:");
                     passWord = sc.nextLine();
                     System.out.println("userName = " + userName + ", passWord = " + passWord);
+                	do {
+                		// If username and password match, then show the actions
+                        // Correct username = "USERNAME1", correct password = "PASSWORD123"
+                        if (userManager.Login(userName, passWord)) {
+                            System.out.println("\n========== Cinema Staff ==========\n");
+                            System.out.println("Please select what you want to do:");
+                            System.out.println("1. Create/Update/Remove movie listing");
+                            System.out.println("2. Create/Update/Remove cinema showtimes and the movies to be shown");
+                            System.out.println("3. Configure system settings");
+                            System.out.println("4. Exit");
+                            System.out.println("\n==================================\n");
+                            choice = sc.nextInt();
 
-                    // If username and password match, then show the actions
-                    // Correct username = "USERNAME1", correct password = "PASSWORD123"
-                    if (userManager.Login(userName, passWord)) {
-                        System.out.println("\n========== Cinema Staff ==========\n");
-                        System.out.println("Please select what you want to do:");
-                        System.out.println("1. Create/Update/Remove movie listing");
-                        System.out.println("2. Create/Update/Remove cinema showtimes and the movies to be shown");
-                        System.out.println("3. Configure system settings");
-                        System.out.println("4. Exit");
-                        System.out.println("\n==================================\n");
-                        choice = sc.nextInt();
+                            // Getting user's choice, then deciding which options to show
+                            switch(choice) {
+                                case 1: {
+                                	MovieUI.MovieEditor();
+                                	break;
+                                }
+                                
+                                case 2: {
+                                    break;
+                                }
+                                
+                                case 3: {
+                                    break;
+                                }
 
-                        // Getting user's choice, then deciding which options to show
-                        switch(choice) {
-                            case 1: {
-                                break;
-                            }
-                            
-                            case 2: {
-                                break;
-                            }
-                            
-                            case 3: {
-                                break;
-                            }
-
-                            // Exiting
-                            case 4: {
-                                System.out.println("Exiting...");
-                                return;
+                                // Exiting
+                                case 4: {
+                                    System.out.println("Exiting...");
+                                    return;
+                                }
                             }
                         }
-                    }
 
-                    // Else if the details are wrong, return
-                    else {
-                        System.out.println("You have entered incorrect username / password, please rerun the program again");
-                        return;
-                    }
+                        // Else if the details are wrong, return
+                        else {
+                            System.out.println("You have entered incorrect username / password, please rerun the program again");
+                            return;
+                        }
+                	} while (choice != 4);
+                    
+
+                    
                     break;
                 }
 
