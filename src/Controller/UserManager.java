@@ -3,19 +3,25 @@ package Controller;
 import Model.Staff;
 import Model.User;
 import Utils.Config;
-import Utils.Saveable;
 
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-public class UserManager implements Saveable {
+public class UserManager extends ManagerBase {
+    private static UserManager instance = null;
 
     private ArrayList<Staff> Staffs;
     private ArrayList<User> Users;
 
-    public UserManager()
+    public static UserManager getInstance()
+    {
+        if (instance == null) instance = new UserManager();
+        return instance;
+    }
+
+    private UserManager()
     {
         this.Users = new ArrayList<>();
         this.Staffs = new ArrayList<>();
@@ -31,6 +37,22 @@ public class UserManager implements Saveable {
                 return s.getHashedPassword().equals(HashedPw);
         }
         return false;
+    }
+
+    public User GetUserByEmail(String Email)
+    {
+        var r = this.Users.stream().filter(u -> u.getEmail().equals(Email)).findFirst();
+        if (r.isPresent())
+            return r.get();
+        return null;
+    }
+
+    public User AddUser(String Email, String Name, String Phone)
+    {
+        User NewUser = new User(String.format("%d",this.Users.size() + 1), Email, Name, Phone);
+        this.Users.add(NewUser);
+        this.Save();
+        return NewUser;
     }
 
     private String GenerateHashedPassword(String Password)
@@ -50,35 +72,21 @@ public class UserManager implements Saveable {
     }
 
     @Override
-    public void Save(String filepath) {
-        try {
-            FileOutputStream fos = new FileOutputStream(filepath + Config.UserManagerFileName);
-            ObjectOutputStream out = new ObjectOutputStream(fos);
-            out.writeObject(this.Staffs);
-            out.writeObject(this.Users);
-            out.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    protected void SaveObjects(ObjectOutputStream out) throws IOException
+    {
+        out.writeObject(this.Staffs);
+        out.writeObject(this.Users);
+    }
+
+    @Override
+    protected void LoadObjects(ObjectInputStream in) throws ClassNotFoundException, IOException
+    {
+        this.Staffs = (ArrayList) in.readObject();
+        this.Users = (ArrayList) in.readObject();
     }
 
     @Override
     public void Load(String filepath) {
-        try {
-            FileInputStream fis = new FileInputStream(filepath + Config.UserManagerFileName);
-            ObjectInputStream in = new ObjectInputStream(fis);
-            this.Staffs = (ArrayList) in.readObject();
-            this.Users = (ArrayList) in.readObject();
-            in.close();
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-            this.Save(filepath);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            this.Save(filepath);
-        } catch (ClassNotFoundException e) {
-            this.Save(filepath);
-        }
+        super.Load(filepath + Config.UserManagerFileName);
     }
 }

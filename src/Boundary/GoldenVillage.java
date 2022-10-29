@@ -5,6 +5,7 @@ import Controller.UserManager;
 import Model.Movie;
 import Model.MovieStatus;
 import Model.MovieType;
+import Model.User;
 
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -13,13 +14,12 @@ public class GoldenVillage {
 	public static void main(String[] args) {
         // Declaration of variables
         String CurPath = Paths.get("").toAbsolutePath().toString() + "/";
-        UserManager userManager = new UserManager();
-        userManager.Load(CurPath);
+        UserManager.getInstance().Load(CurPath);
         MovieManager.getInstance().Load(CurPath);
 
         int choice;
         Scanner sc = new Scanner(System.in);
-        
+        UserSelectorUI userSelectorUI = new UserSelectorUI(sc);
         // Displaying the main menu
         do {
             System.out.println("\n========== Main Menu ==========\n");
@@ -39,16 +39,11 @@ public class GoldenVillage {
                 	String userName, passWord;
 
                     // Need to login first
-                    System.out.println("\n========== Cinema Staff ==========\n");
-                    System.out.println("Please enter staff username:");
-                    userName = sc.nextLine();
-                    System.out.println("Please enter staff password:");
-                    passWord = sc.nextLine();
-                    System.out.println("userName = " + userName + ", passWord = " + passWord);
+                    boolean Success = userSelectorUI.HandleCinemaStaffLogin();
                 	do {
                 		// If username and password match, then show the actions
                         // Correct username = "USERNAME1", correct password = "PASSWORD123"
-                        if (userManager.Login(userName, passWord)) {
+                        if (Success) {
                             System.out.println("\n========== Cinema Staff ==========\n");
                             System.out.println("Please select what you want to do:");
                             System.out.println("1. Create/Update/Remove movie listing");
@@ -95,6 +90,7 @@ public class GoldenVillage {
 
                 // If movie goer
                 case 2: {
+                    User u = userSelectorUI.HandleMovieGoer();
                     System.out.println("\n========== Movie Goer ==========\n");
                     System.out.println("Please select what you want to do:");
                     System.out.println("1. Search movies");

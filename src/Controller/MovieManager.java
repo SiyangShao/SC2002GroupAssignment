@@ -15,7 +15,7 @@ import Model.MovieType;
 import Utils.Config;
 import Utils.Saveable;
 
-public class MovieManager implements Saveable {
+public class MovieManager extends ManagerBase {
 	private ArrayList<Movie> Movies;
 	private static MovieManager instance;
 	public MovieManager() {
@@ -30,8 +30,7 @@ public class MovieManager implements Saveable {
 	public void addMovie(String title, int type,  int status, int rating, String desc, String direc) {
 		Movie m = new Movie( title, type, status, rating, desc, direc);
 		Movies.add(m);
-		String CurPath = Paths.get("").toAbsolutePath().toString() + "/";
-        Save(CurPath);
+		this.Save();
 	}
 
 	public Movie removeMovie(int movieID) {
@@ -76,8 +75,7 @@ public class MovieManager implements Saveable {
 	    		break;
 	        
 		}
-		String CurPath = Paths.get("").toAbsolutePath().toString() + "/";
-        Save(CurPath);
+		this.Save();
 		return oneMovie;
 	}
 	
@@ -86,36 +84,18 @@ public class MovieManager implements Saveable {
 	}
 
 	@Override
-	public void Save(String filepath) {
-		// TODO Auto-generated method stub
-        try {
-            FileOutputStream fos = new FileOutputStream(filepath + Config.MovieManagerFileName);
-            ObjectOutputStream out = new ObjectOutputStream(fos);
-            out.writeObject(this.Movies);
-            out.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+	protected void SaveObjects(ObjectOutputStream out) throws IOException {
+		out.writeObject(this.Movies);
+	}
+
+	@Override
+	protected void LoadObjects(ObjectInputStream in) throws ClassNotFoundException, IOException {
+		this.Movies = (ArrayList) in.readObject();
 	}
 
 	@Override
 	public void Load(String filepath) {
-		// TODO Auto-generated method stub
-		 try {
-	            FileInputStream fis = new FileInputStream(filepath + Config.MovieManagerFileName);
-	            ObjectInputStream in = new ObjectInputStream(fis);
-	            this.Movies = (ArrayList) in.readObject();
-	            in.close();
-	        }catch (FileNotFoundException e){
-	            e.printStackTrace();
-	            this.Save(filepath);
-	        }
-	        catch (IOException e) {
-	            e.printStackTrace();
-	            this.Save(filepath);
-	        } catch (ClassNotFoundException e) {
-	            this.Save(filepath);
-	        }
+		super.Load(filepath + Config.MovieManagerFileName);
 	}
 	
 	public void Import(String filepath) {

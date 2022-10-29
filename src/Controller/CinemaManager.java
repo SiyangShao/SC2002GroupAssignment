@@ -13,7 +13,7 @@ public class CinemaManager implements Saveable {
 	}
 
 	@Override
-	public void Save(String filepath) {
+	public void Save() {
 		// TODO Auto-generated method stub
 		
 	}

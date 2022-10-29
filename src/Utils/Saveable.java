@@ -1,6 +1,6 @@
 package Utils;
 
 public interface Saveable {
-	public void Save(String filepath);
+	public void Save();
 	public void Load(String filepath);
 }
