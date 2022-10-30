@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import Model.*;
@@ -95,18 +96,28 @@ public class MovieManager extends ManagerBase {
 		}
 		return movie;
 	}
+
+	public MovieSlot addMovieSlot(LocalDateTime dt, int CinemaID, int movieID, int seatNumber, int basePrice) {
+		// check if conflict time, if conflict return error, else add (WIP)
+		MovieSlot ms = new MovieSlot(dt, movieID, CinemaID, seatNumber, basePrice);
+		Movie movie = MovieManager.getInstance().getOneMovie(movieID);
+		if (movie == null) return null;
+		movie.AddSlot(ms);
+		return ms;
+	}
 	public MovieSlot removeMovieSlot(int movieSlotID) {
-		MovieSlot moveSlot = null;
+		MovieSlot movieSlot = null;
 		for (Movie movie : Movies) {
 			for (MovieSlot ms : movie.getSlots()) {
 				if (ms.getMovieSlotID() == movieSlotID) {
-					moveSlot = ms;
+					movieSlot = ms;
 					movie.removeSlot(ms);
 				}
 			}
 		}
-		return moveSlot;
+		return movieSlot;
 	}
+
 	@Override
 	protected void SaveObjects(ObjectOutputStream out) throws IOException {
 		out.writeObject(this.Movies);

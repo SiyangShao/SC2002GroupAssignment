@@ -1,6 +1,7 @@
 package Boundary;
 
 import Controller.CineplexManager;
+import Controller.MovieManager;
 import Model.Cinema;
 import Model.Cineplex;
 import Model.Movie;
@@ -103,12 +104,12 @@ public class CinemaUI {
 		int movieID = sc.nextInt();
 		System.out.println("Enter Movie Showtime (24 hour format)");
 		LocalDateTime dt = getInput_DateTime();
-		Movie m = cinema.addShowTime(dt, movieID, 50, 8);
-		if (m == null) {
+		MovieSlot movieslot = MovieManager.getInstance().addMovieSlot(dt,cinema.getCinemaID(), movieID, 50, 8);
+		if (movieslot == null) {
 			System.out.println("Invalid Movie ID. Try Again");
 			return;
 		}
-		System.out.println(m.getTitle() + " now showing on " + cinema.getCinemaName() + " at " + dt.format(formatter));
+		System.out.println(movieslot.getMovieName() + " now showing on " + cinema.getCinemaName() + " at " + dt.format(formatter));
 	}
 
 	private void viewShowTimes(Cinema cinema, boolean byActualID) {
@@ -128,8 +129,6 @@ public class CinemaUI {
 
 				}
 			}
-
-
 	}
 	private void deleteShowTime(Cinema cinema) {
 		System.out.println("Delete Showtime for Cinema " + cinema.getCinemaName());
@@ -137,7 +136,7 @@ public class CinemaUI {
 		System.out.println("Which Showtime would you like to remove?, (Enter 0 to exit)");
 		int msID = sc.nextInt();
 		if (msID == 0 ) return;
-		MovieSlot ms = cinema.removeShowTime(msID);
+		MovieSlot ms = MovieManager.getInstance().removeMovieSlot(msID);
 		if (ms == null) {
 			System.out.println("Invalid Movie ID, Try Again");
 			deleteShowTime(cinema);

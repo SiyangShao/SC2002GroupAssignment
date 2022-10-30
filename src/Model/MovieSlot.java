@@ -34,12 +34,12 @@ public class MovieSlot {
         setMovieSlotID();
     }
     private void setMovieSlotID() {
-        int count = 1;
+        int count = 0;
         ArrayList<Movie> Movies = MovieManager.getInstance().getMovies();
         for (int i = 0 ; i < Movies.size(); i++) {
             count += Movies.get(i).getSlotCount();
         }
-        MovieSlotID = count;
+        MovieSlotID = count+1;
 
     }
 

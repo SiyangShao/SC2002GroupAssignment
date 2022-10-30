@@ -24,25 +24,11 @@ public class Cinema implements Serializable {
 			count += CineplexManager.getInstance().getCineplexes().get(i).getCinemas().size();
 
 		}
-		CinemaID = count;
+		CinemaID = count+1;
 	}
-	public Movie addShowTime(LocalDateTime dt, int movieID, int seatNumber, int basePrice) {
-		// check if conflict time, if conflict return error, else add (WIP)
-		MovieSlot ms = new MovieSlot(dt, movieID, this.CinemaID, seatNumber, basePrice);
-		Movie movie = null;
-		movie = MovieManager.getInstance().getOneMovie(movieID);
-		if (movie == null) return null;
-		movie.AddSlot(ms);
-		return movie;
-	}
-
-	public MovieSlot removeShowTime(int movieSlotID) {
-		MovieSlot movieSlot = MovieManager.getInstance().removeMovieSlot(movieSlotID);
-		return movieSlot;
-	}
-
 	// cinema can have multiple movies with multiple slots of each movie
-	// can be moved to moviemanager maybe
+	// removed Cinema.ArrayList<MovieID>, that implementation because have to remove Movie.MovieSlot and Cinema.MovieID instead of just MovieSlot
+	// can be moved to moviemanager
     public ArrayList<ArrayList<MovieSlot>> CurrentMovieSlots() {
     	
     	ArrayList<Movie> Movies = MovieManager.getInstance().getMovies();
