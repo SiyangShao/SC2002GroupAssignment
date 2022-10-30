@@ -2,10 +2,7 @@ package Boundary;
 
 import Controller.MovieManager;
 import Controller.UserManager;
-import Model.Movie;
-import Model.MovieStatus;
-import Model.MovieType;
-import Model.User;
+import Model.*;
 
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -21,6 +18,8 @@ public class GoldenVillage {
 		Scanner sc = new Scanner(System.in);
 		UserSelectorUI userSelectorUI = new UserSelectorUI(sc);
 		MovieUI movieUI = new MovieUI(sc);
+		CinemaUI cinemaUI = new CinemaUI(sc);
+		CineplexUI cineplexUI = new CineplexUI(sc,cinemaUI);
 		// Displaying the main menu
 		do {
 			System.out.println("\n========== Main Menu ==========\n");
@@ -57,11 +56,12 @@ public class GoldenVillage {
 						// Getting user's choice, then deciding which options to show
 						switch (choice) {
 						case 1: {
-							movieUI.MovieEditor();
+							movieUI.HandleMovie();
 							break;
 						}
 
 						case 2: {
+							cineplexUI.HandleCineplexUI();
 							break;
 						}
 

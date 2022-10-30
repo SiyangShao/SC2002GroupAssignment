@@ -14,7 +14,7 @@ public class MovieUI {
 		this.sc = sc;
 	}
 
-	public void MovieEditor() {
+	public void HandleMovie() {
 		System.out.println("What would you like to do?");
 		System.out.println("1. Add New Movie");
 		System.out.println("2. Edit Movie");
