@@ -14,12 +14,15 @@ public class User implements Serializable {
 
     private ArrayList<String> TransactionID;
 
+    private ArrayList<String> CancelledTransactionID;
+
     public User(String UserId, String Email, String Name, String Phone) {
         this.UserId = UserId;
         this.Email = Email;
         this.Name = Name;
         this.Phone = Phone;
         this.TransactionID = new ArrayList<>();
+        this.CancelledTransactionID = new ArrayList<>();
     }
 
     public String getUserId() {
@@ -78,6 +81,9 @@ public class User implements Serializable {
                 }
             }
         }
+        for (String cancelledTransaction : CancelledTransactionID) {
+            System.out.println("You have cancelled the transaction: " + cancelledTransaction);
+        }
     }
 
     public boolean bookSeats(ArrayList<Integer> seatsNo, ArrayList<TicketType> types, MovieSlot movieSlot) {
@@ -92,6 +98,14 @@ public class User implements Serializable {
             System.out.println("You do not have this transaction.");
             return false;
         }
-        return movieSlot.removeTicket(TransactionID);
+        if (movieSlot.removeTicket(TransactionID)) {
+            this.TransactionID.remove(TransactionID);
+            TransactionID = "F" + TransactionID;
+            this.CancelledTransactionID.add(TransactionID);
+            return true;
+        } else {
+            System.out.println("Transaction ID not found.");
+            return false;
+        }
     }
 }

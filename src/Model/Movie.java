@@ -18,7 +18,7 @@ public class Movie implements Serializable {
     private ArrayList<String> Cast;
 
     private ArrayList<MovieSlot> Slots;
-    
+
     public Movie(String title, int type,  int status, int movieRating, String desc, String direc) {
     	this.Title = title;
         setType(type);
@@ -28,9 +28,10 @@ public class Movie implements Serializable {
         this.Director = direc;
         this.MovieID = MovieManager.getInstance().getSize() + 1;
     }
-    
+
     public Movie(String title, int type,  int status, int movieRating, String desc, String direc, ArrayList<String> c) {
         this.Title = title;
+        this.Slots = new ArrayList<>();
         setType(type);
         setStatus(status);
     	setMovieRating(movieRating);
@@ -60,7 +61,7 @@ public class Movie implements Serializable {
     public MovieStatus getStatus() {
         return Status;
     }
-   
+
     public void setStatus(int status) {
     	switch(status) {
     	case 1: this.Status = MovieStatus.COMING_SOON; break;
@@ -70,7 +71,7 @@ public class Movie implements Serializable {
     	default: break;
     	}
     }
-    
+
     public void setStatus(MovieStatus status) {
     	this.Status = status;
     }
@@ -135,7 +136,7 @@ public class Movie implements Serializable {
 	public void setMovieRating(MovieRating movieRating) {
 		MovieRating = movieRating;
 	}
-	
+
 	public void AddSlot(MovieSlot newSlot) {
         Slots.add(newSlot);
     }

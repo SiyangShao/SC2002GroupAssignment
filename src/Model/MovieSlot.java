@@ -10,9 +10,9 @@ public class MovieSlot {
     /*
     seats are unsold out tickets, and tickets are sold out seats
      */
-    private ArrayList<Seat> seats;
+    private final ArrayList<Seat> seats;
 
-    private ArrayList<Ticket> tickets;
+    private final ArrayList<Ticket> tickets;
 
     public MovieSlot(LocalDateTime datetime, int MOVIE, int CINEMA, int seat_numbers, double basePrice) {
         setDatetime(datetime);
@@ -94,12 +94,16 @@ public class MovieSlot {
             System.out.println("The number of seats and types do not match.");
             return null;
         }
+        boolean success = true;
         for (Integer integer : seatsNo) {
             if (!checkSeat(integer)) {
                 System.out.println("Seat " + integer + " is not available.");
-                System.out.println("The Transaction is cancelled.");
-                return null;
+                success = false;
             }
+        }
+        if (!success) {
+            System.out.println("The Transaction is cancelled.");
+            return null;
         }
         double totalPrice = 0;
         for (int i = 0; i < seatsNo.size(); ++i) {
