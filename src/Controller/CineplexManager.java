@@ -23,14 +23,54 @@ public class CineplexManager extends ManagerBase {
 		}
 		return instance;
 	}
-	public void addCineplex() {
-		
+	public Cineplex addCineplex(String name, String loc) {
+		Cineplex cineplex = new Cineplex(name, loc);
+		this.Cineplexes.add(cineplex);
+		this.Save();
+		return cineplex;
 	}
-	
-	public void removeCineplex() {
-		
+	public Cineplex updateCineplex(int ID, int choice, Object value) {
+		Cineplex toUpdate = null;
+		for (int i =0; i < this.getSize(); i++) {
+			if (this.getInstance().Cineplexes.get(i).getCineplexID() == ID) {
+				toUpdate = this.getInstance().Cineplexes.get(i);
+			}
+		}
+		if (toUpdate == null) return null;
+		else {
+			switch (choice) {
+				case 1:
+					toUpdate.setCineplexName((String) value);
+					break;
+				case 2:
+					toUpdate.setLocation((String) value);
+					break;
+			}
+		}
+		return toUpdate;
 	}
-	
+	public String removeCineplex(int cID) {
+		String cineplexName = null;
+		for (int i =0; i<this.Cineplexes.size(); i++) {
+			if (this.Cineplexes.get(i).getCineplexID() == cID) {
+				cineplexName = this.Cineplexes.get(i).getCineplexName();
+				this.Cineplexes.remove(i);
+			}
+		}
+		return cineplexName;
+	}
+	public ArrayList<Cineplex> getCineplexes() {
+		return this.Cineplexes;
+	}
+
+	public Cineplex getOneCineplex(int cineplexID) {
+		Cineplex cineplex = null;
+		for (int i =0; i < this.Cineplexes.size(); i++) {
+			if (this.Cineplexes.get(i).getCineplexID() == cineplexID) cineplex = this.Cineplexes.get(i);
+		}
+		return cineplex;
+	}
+
 	public int getSize() {
 		return this.Cineplexes.size();
 	}

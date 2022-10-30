@@ -28,10 +28,11 @@ public class MovieManager extends ManagerBase {
 		return Movies.size();
 	}
 
-	public void addMovie(String title, int type, int status, int rating, String desc, String direc) {
+	public Movie addMovie(String title, int type, int status, int rating, String desc, String direc) {
 		Movie m = new Movie(title, type, status, rating, desc, direc);
 		Movies.add(m);
 		this.Save();
+		return m;
 	}
 
 	public Movie removeMovie(int movieID) {

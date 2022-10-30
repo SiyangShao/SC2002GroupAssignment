@@ -1,10 +1,11 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Controller.CineplexManager;
 
-public class Cineplex {
+public class Cineplex implements Serializable {
 	private String CineplexName;
 	private String Location;
 	private int CineplexID;
@@ -40,7 +41,36 @@ public class Cineplex {
 		Location = location;
 	}
 	
-	
-	
+	public Cinema addCinema(String name, int cinemaType) {
+		Cinema cinema = new Cinema(name, cinemaType);
+		this.Cinemas.add(cinema);
+		return cinema;
+	}
+	public Cinema updateCinema(int cinemaID, int choice, Object value) {
+		Cinema cinema = null;
+		for (int i =0; i < this.Cinemas.size(); i++) {
+			if (this.Cinemas.get(i).getCinemaID() == cinemaID)
+				cinema = this.Cinemas.get(i);
+		}
+		if (cinema == null) return null;
+		switch (choice) {
+			case 1: cinema.setCinemaName((String) value); break;
+			case 2: cinema.setType((int) value); break;
+		}
+		return cinema;
+	}
+	public Cinema removeCinema(int cinemaID) {
+		Cinema cinema = null;
+		for (int i =0; i < this.Cinemas.size(); i++) {
+			if (this.Cinemas.get(i).getCinemaID() == cinemaID)
+				cinema = this.Cinemas.get(i);
+				System.out.println("REMOVED CINEMA");
+				this.Cinemas.remove(i);
+		}
+		return cinema;
+	}
+	public ArrayList<Cinema> getCinemas() {
+		return this.Cinemas;
+	}
 	
 }

@@ -41,10 +41,9 @@ public class MovieUI {
 	private void addMovie() {
 		// String title,MovieType type, MovieStatus status, String desc, String direc
 		System.out.println("Create New Movie");
-		String title = getInput_Title();
-		MovieManager.getInstance().addMovie(title, getInput_Type(), getInput_MovieRating(), getInput_Status(),
+		Movie m = MovieManager.getInstance().addMovie(getInput_Title(), getInput_Type(), getInput_MovieRating(), getInput_Status(),
 				getInput_Desc(), getInput_Direc());
-		System.out.println("Successfully added new Movie: " + title);
+		System.out.println("Successfully added new Movie: " + m.getTitle());
 	}
 
 	private void updateMovie() {
