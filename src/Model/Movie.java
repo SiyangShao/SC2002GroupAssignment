@@ -19,14 +19,20 @@ public class Movie implements Serializable {
 
     private ArrayList<MovieSlot> Slots;
 
-    public Movie(String title, int type,  int status, int movieRating, String desc, String direc) {
+
+
+    private int DurationMins;
+
+    public Movie(String title, int type,  int status, int movieRating, String desc, int duration, String direc) {
     	this.Title = title;
         setType(type);
         setStatus(status);
     	setMovieRating(movieRating);
         this.Description = desc;
+        this.DurationMins = duration;
         this.Director = direc;
         this.MovieID = MovieManager.getInstance().getSize() + 1;
+        this.Slots = new ArrayList<>();
     }
 
     public Movie(String title, int type,  int status, int movieRating, String desc, String direc, ArrayList<String> c) {
@@ -39,6 +45,7 @@ public class Movie implements Serializable {
         this.Director = direc;
         this.Cast = c;
         this.MovieID = MovieManager.getInstance().getSize() + 1;
+        this.Slots = new ArrayList<>();
     }
 
     public int getMovieID() {
@@ -112,7 +119,13 @@ public class Movie implements Serializable {
     	default: break;
     	}
     }
+    public int getDurationMins() {
+        return DurationMins;
+    }
 
+    public void setDurationMins(int durationMins) {
+        DurationMins = durationMins;
+    }
 	public double getReviewRating() {
 		return ReviewRating;
 	}
@@ -149,7 +162,13 @@ public class Movie implements Serializable {
         }
         return false;
     }
-
+    //used for setting MovieSlot ID
+    public int getSlotCount() {
+        return this.Slots.size();
+    }
+    public ArrayList<MovieSlot> getSlots() {
+        return this.Slots;
+    }
     public ArrayList<MovieSlot> getSlots(int CinemaID) {
         ArrayList<MovieSlot> list = new ArrayList<>();
         for (MovieSlot i : Slots) {

@@ -14,7 +14,7 @@ public class MovieUI {
 		this.sc = sc;
 	}
 
-	public void HandleMovie() {
+	public void HandleMovieUI() {
 		System.out.println("What would you like to do?");
 		System.out.println("1. Add New Movie");
 		System.out.println("2. Edit Movie");
@@ -42,7 +42,7 @@ public class MovieUI {
 		// String title,MovieType type, MovieStatus status, String desc, String direc
 		System.out.println("Create New Movie");
 		Movie m = MovieManager.getInstance().addMovie(getInput_Title(), getInput_Type(), getInput_MovieRating(), getInput_Status(),
-				getInput_Desc(), getInput_Direc());
+				getInput_Desc(), getInput_Duration(), getInput_Direc());
 		System.out.println("Successfully added new Movie: " + m.getTitle());
 	}
 
@@ -60,9 +60,10 @@ public class MovieUI {
 		System.out.println("3. Status");
 		System.out.println("4. Movie Rating");
 		System.out.println("5. Description");
-		System.out.println("6. Director");
-		System.out.println("7. List of cast");
-		System.out.println("8. Exit");
+		System.out.println("6. Duration");
+		System.out.println("7. Director");
+		System.out.println("8. List of cast");
+		System.out.println("9. Exit");
 		int choice = sc.nextInt();
 		switch (choice) {
 		case 1:
@@ -81,12 +82,15 @@ public class MovieUI {
 			value = getInput_Desc();
 			break;
 		case 6:
-			value = getInput_Direc();
+			value = getInput_Duration();
 			break;
 		case 7:
-			value = getInput_Cast();
+			value = getInput_Direc();
 			break;
 		case 8:
+			value = getInput_Cast();
+			break;
+		case 9:
 			return;
 		default:
 			System.out.println("You did not select anything");
@@ -118,8 +122,12 @@ public class MovieUI {
 		}
 	}
 
-	private void listMovies() {
+	public void listMovies() {
 		ArrayList<Movie> movies = MovieManager.getInstance().getMovies();
+		if (movies == null) {
+			System.out.println("No Movies Found.");
+			return;
+		}
 		for (int i = 0; i < movies.size(); i++) {
 			Movie oneMovie = movies.get(i);
 			if (oneMovie.getStatus() != MovieStatus.END_OF_SHOWING)
@@ -146,9 +154,12 @@ public class MovieUI {
 		System.out.println("Enter Movie Rating (1. G, 2. PG, 3. R18, 4. R21)");
 		return sc.nextInt();
 	}
-
+	private int getInput_Duration() {
+		System.out.println("Enter Movie Duration in Minutes");
+		return sc.nextInt();
+	}
 	private String getInput_Desc() {
-		System.out.println("String Movie Description");
+		System.out.println("Enter Movie Description");
 		return sc.next();
 	}
 

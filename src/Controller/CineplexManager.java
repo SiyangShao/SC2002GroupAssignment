@@ -13,7 +13,7 @@ public class CineplexManager extends ManagerBase {
 	private static CineplexManager instance;
 	
 	public CineplexManager() {
-		
+		this.Cineplexes = new ArrayList<>();
 		
 	}
 	
@@ -49,15 +49,15 @@ public class CineplexManager extends ManagerBase {
 		}
 		return toUpdate;
 	}
-	public String removeCineplex(int cID) {
-		String cineplexName = null;
+	public Cineplex removeCineplex(int cID) {
+		Cineplex cineplex = null;
 		for (int i =0; i<this.Cineplexes.size(); i++) {
 			if (this.Cineplexes.get(i).getCineplexID() == cID) {
-				cineplexName = this.Cineplexes.get(i).getCineplexName();
+				cineplex = this.Cineplexes.get(i);
 				this.Cineplexes.remove(i);
 			}
 		}
-		return cineplexName;
+		return cineplex;
 	}
 	public ArrayList<Cineplex> getCineplexes() {
 		return this.Cineplexes;

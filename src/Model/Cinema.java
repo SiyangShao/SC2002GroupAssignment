@@ -1,43 +1,58 @@
 package Model;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 ;
 import Controller.CineplexManager;
 import Controller.MovieManager;
 
-public class Cinema {
+public class Cinema implements Serializable {
     private CinemaType type;
 	private int CinemaID;
 	private String CinemaName;
-    private ArrayList<Integer> MovieID;
     
     public Cinema(String name, int ctype) {
-    	this.CinemaID = getLatestCinemaID()+1;
+    	setCinemaID();
     	this.CinemaName = name;
     	setType(ctype);
     }
 	// one cineplex = many cinemas
-	// don't duplicate cinema ID so loop entire cineplex + cinemas to get latest ID
-	// got better solution ?
-    private int getLatestCinemaID() {
-		ArrayList<Cineplex> cineplexes = CineplexManager.getInstance().getCineplexes();
+    private void setCinemaID() {
 		int count = 0;
-		for (int i = 0; i < cineplexes.size(); i++) {
-			for (int j = 0; j < cineplexes.get(i).getCinemas().size(); j++) {
-				count++;
-			}
+		for (int i = 0; i < CineplexManager.getInstance().getCineplexes().size(); i++) {
+			count += CineplexManager.getInstance().getCineplexes().get(i).getCinemas().size();
+
 		}
-		return count;
+		CinemaID = count;
 	}
+	public Movie addShowTime(LocalDateTime dt, int movieID, int seatNumber, int basePrice) {
+		// check if conflict time, if conflict return error, else add (WIP)
+		MovieSlot ms = new MovieSlot(dt, movieID, this.CinemaID, seatNumber, basePrice);
+		Movie movie = null;
+		movie = MovieManager.getInstance().getOneMovie(movieID);
+		if (movie == null) return null;
+		movie.AddSlot(ms);
+		return movie;
+	}
+
+	public MovieSlot removeShowTime(int movieSlotID) {
+		MovieSlot movieSlot = MovieManager.getInstance().removeMovieSlot(movieSlotID);
+		return movieSlot;
+	}
+
+	// cinema can have multiple movies with multiple slots of each movie
+	// can be moved to moviemanager maybe
     public ArrayList<ArrayList<MovieSlot>> CurrentMovieSlots() {
     	
     	ArrayList<Movie> Movies = MovieManager.getInstance().getMovies();
     	
         ArrayList<ArrayList<MovieSlot>> currentSlots = new ArrayList<>();
         for (Movie movie : Movies) {
-            if (this.MovieID.contains(movie.getMovieID())) {
-                currentSlots.add(movie.getSlots(this.CinemaID));
-            }
+			ArrayList<MovieSlot> slots = movie.getSlots(this.CinemaID);
+			if (slots.size() > 0)
+				currentSlots.add(slots);
+
         }
         return currentSlots;
 
@@ -61,10 +76,6 @@ public class Cinema {
 
 	public int getCinemaID() {
 		return CinemaID;
-	}
-
-	public void setCinemaID(int cinemaID) {
-		CinemaID = cinemaID;
 	}
 
 	public String getCinemaName() {

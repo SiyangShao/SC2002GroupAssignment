@@ -2,6 +2,7 @@ package Boundary;
 
 import Controller.CineplexManager;
 import Controller.MovieManager;
+import Model.Cinema;
 import Model.Cineplex;
 import Model.Movie;
 
@@ -18,26 +19,44 @@ public class CineplexUI {
 	}
 	
 	public void HandleCineplexUI() {
-		System.out.println("What would you like to do?");
-		System.out.println("1. Create/View/Update/Remove Cineplex");
-		System.out.println("2. Create/View/Update/Remove Cinema for Cineplex");
-		System.out.println("3. Handle Showtimes for Cinema");
-		int choice = sc.nextInt();
-		switch (choice) {
-		case 1:
-			HandleCineplexCRUD();
-			break;
-		case 2:
-			listCineplex();
-			System.out.println("Enter Cineplex ID");
-			int cineplexID = sc.nextInt();
-			cinemaUI.handleCinemaCRUD(cineplexID);
-			break;
-		case 3:
-			break;
-		default:
-			break;
-		}
+		int choice;
+		Cineplex cineplex;
+		do {
+			System.out.println("What would you like to do?");
+			System.out.println("1. Create/View/Update/Remove Cineplex");
+			System.out.println("2. Create/View/Update/Remove Cinema for Cineplex");
+			System.out.println("3. Handle Showtimes for Cinema");
+			System.out.println("4. Exit");
+
+			choice = sc.nextInt();
+			switch (choice) {
+				case 1:
+					HandleCineplexCRUD();
+					break;
+				case 2:
+					cineplex = getInput_Cineplex();
+					if (cineplex == null) {
+						System.out.println("Invalid Cineplex ID.");
+						break;
+					}
+					cinemaUI.handleCinemaCRUD(cineplex);
+					break;
+				case 3:
+					cineplex = getInput_Cineplex();
+					if (cineplex == null) {
+						System.out.println("Invalid Cineplex ID.");
+						break;
+					}
+					cinemaUI.handleShowTimes(cineplex);
+					break;
+				case 4:
+					break;
+				default:
+					System.out.println("Invalid Choice.");
+					break;
+			}
+		} while (choice != 4);
+
 	}
 
 	private void HandleCineplexCRUD() {
@@ -111,16 +130,20 @@ public class CineplexUI {
 		System.out.println("Which Cineplex would you like to remove?, (Enter 0 to exit)");
 		int cineplexID = sc.nextInt();
 		if (cineplexID == 0 ) return;
-		String cineplexName = CineplexManager.getInstance().removeCineplex(cineplexID);
-		if (cineplexName == null) {
+		Cineplex cineplex = CineplexManager.getInstance().removeCineplex(cineplexID);
+		if (cineplex == null) {
 			System.out.println("Invalid Cineplex ID, Try again");
 			removeCineplex();
 		} else {
-			System.out.println("Successfully removed Cineplex " + cineplexName);
+			System.out.println("Successfully removed Cineplex " + cineplex.getCineplexName());
 		}
 	}
 	private void listCineplex() {
 		ArrayList<Cineplex> cineplexes = CineplexManager.getInstance().getCineplexes();
+		if (cineplexes == null || cineplexes.size() == 0) {
+			System.out.println("No Cineplexs Found.");
+			return;
+		}
 		for (int i =0; i < cineplexes.size();i++) {
 			System.out.println(cineplexes.get(i).getCineplexID() + ". " + cineplexes.get(i).getCineplexName());
 		}
@@ -135,6 +158,15 @@ public class CineplexUI {
 		System.out.println("Enter Cineplex Location");
 		String loc = sc.next();
 		return loc;
+	}
+
+	private Cineplex getInput_Cineplex() {
+		System.out.println("List of Available Cineplexs");
+		listCineplex();
+		System.out.println("Enter Cineplex ID");
+		int cineplexID = sc.nextInt();
+		return CineplexManager.getInstance().getOneCineplex(cineplexID);
+
 	}
 	
 }

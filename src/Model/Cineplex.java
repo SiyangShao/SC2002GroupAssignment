@@ -12,6 +12,7 @@ public class Cineplex implements Serializable {
 	private ArrayList<Cinema> Cinemas;
 	
 	public Cineplex(String name, String loc) {
+		this.Cinemas = new ArrayList<>();
 		this.CineplexName = name;
 		this.Location = loc;
 		this.setCineplexID(CineplexManager.getInstance().getSize() + 1);
@@ -64,7 +65,6 @@ public class Cineplex implements Serializable {
 		for (int i =0; i < this.Cinemas.size(); i++) {
 			if (this.Cinemas.get(i).getCinemaID() == cinemaID)
 				cinema = this.Cinemas.get(i);
-				System.out.println("REMOVED CINEMA");
 				this.Cinemas.remove(i);
 		}
 		return cinema;
@@ -72,5 +72,11 @@ public class Cineplex implements Serializable {
 	public ArrayList<Cinema> getCinemas() {
 		return this.Cinemas;
 	}
-	
+	public Cinema getOneCinema(int cinemaID) {
+		Cinema cinema = null;
+		for (int i =0; i < this.Cinemas.size(); i++) {
+			if (this.Cinemas.get(i).getCinemaID() == cinemaID) cinema = this.Cinemas.get(i);
+		}
+		return cinema;
+	}
 }

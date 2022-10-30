@@ -1,5 +1,6 @@
 package Boundary;
 
+import Controller.CineplexManager;
 import Controller.MovieManager;
 import Controller.UserManager;
 import Model.*;
@@ -13,7 +14,7 @@ public class GoldenVillage {
 		String CurPath = Paths.get("").toAbsolutePath().toString() + "/";
 		UserManager.getInstance().Load(CurPath);
 		MovieManager.getInstance().Load(CurPath);
-
+		CineplexManager.getInstance().Load(CurPath);
 		int choice;
 		Scanner sc = new Scanner(System.in);
 		UserSelectorUI userSelectorUI = new UserSelectorUI(sc);
@@ -56,7 +57,7 @@ public class GoldenVillage {
 						// Getting user's choice, then deciding which options to show
 						switch (choice) {
 						case 1: {
-							movieUI.HandleMovie();
+							movieUI.HandleMovieUI();
 							break;
 						}
 
@@ -66,6 +67,7 @@ public class GoldenVillage {
 						}
 
 						case 3: {
+
 							break;
 						}
 

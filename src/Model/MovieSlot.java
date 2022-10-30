@@ -1,5 +1,8 @@
 package Model;
 
+import Controller.CineplexManager;
+import Controller.MovieManager;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -7,6 +10,9 @@ public class MovieSlot {
     private LocalDateTime datetime;
     private int MovieID;
     private int CinemaID;
+    private int MovieSlotID;
+
+    private String MovieName;
     /*
     seats are unsold out tickets, and tickets are sold out seats
      */
@@ -18,14 +24,32 @@ public class MovieSlot {
         setDatetime(datetime);
         setMovieID(MOVIE);
         setCinemaID(CINEMA);
+        setMovieName(MOVIE);
         this.seats = new ArrayList<>();
         for (int i = 0; i < seat_numbers; ++i) {
             Seat newSeat = new Seat(i, this.MovieID, basePrice);
             this.seats.add(newSeat);
         }
         this.tickets = new ArrayList<>();
+        setMovieSlotID();
+    }
+    private void setMovieSlotID() {
+        int count = 1;
+        ArrayList<Movie> Movies = MovieManager.getInstance().getMovies();
+        for (int i = 0 ; i < Movies.size(); i++) {
+            count += Movies.get(i).getSlotCount();
+        }
+        MovieSlotID = count;
+
     }
 
+    public int getMovieSlotID() {
+        return MovieSlotID;
+    }
+
+    private void setMovieName(int movieID) {
+        this.MovieName = MovieManager.getInstance().getOneMovie(movieID).getTitle();
+    }
 
     public LocalDateTime getDatetime() {
         return datetime;
@@ -49,6 +73,9 @@ public class MovieSlot {
 
     public void setCinemaID(int cinemaID) {
         CinemaID = cinemaID;
+    }
+    public String getMovieName() {
+        return MovieName;
     }
 
     public int remainSeatNumber() {

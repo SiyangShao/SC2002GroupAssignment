@@ -9,9 +9,7 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import Model.Movie;
-import Model.MovieStatus;
-import Model.MovieType;
+import Model.*;
 import Utils.Config;
 import Utils.Saveable;
 
@@ -28,8 +26,8 @@ public class MovieManager extends ManagerBase {
 		return Movies.size();
 	}
 
-	public Movie addMovie(String title, int type, int status, int rating, String desc, String direc) {
-		Movie m = new Movie(title, type, status, rating, desc, direc);
+	public Movie addMovie(String title, int type, int status, int rating, String desc, int duration, String direc) {
+		Movie m = new Movie(title, type, status, rating, desc, duration, direc);
 		Movies.add(m);
 		this.Save();
 		return m;
@@ -74,12 +72,14 @@ public class MovieManager extends ManagerBase {
 			oneMovie.setDescription((String) newValue);
 			break;
 		case 6:
-			oneMovie.setDirector((String) newValue);
+			oneMovie.setDurationMins((int) newValue);
 			break;
 		case 7:
+			oneMovie.setDirector((String) newValue);
+			break;
+		case 8:
 			oneMovie.setCast((ArrayList<String>) newValue);
 			break;
-
 		}
 		this.Save();
 		return oneMovie;
@@ -88,7 +88,25 @@ public class MovieManager extends ManagerBase {
 	public ArrayList<Movie> getMovies() {
 		return this.Movies;
 	}
-
+	public Movie getOneMovie(int movieID) {
+		Movie movie = null;
+		for (int i =0; i < this.Movies.size(); i++) {
+			if (this.Movies.get(i).getMovieID() == movieID) movie = this.Movies.get(i);
+		}
+		return movie;
+	}
+	public MovieSlot removeMovieSlot(int movieSlotID) {
+		MovieSlot moveSlot = null;
+		for (Movie movie : Movies) {
+			for (MovieSlot ms : movie.getSlots()) {
+				if (ms.getMovieSlotID() == movieSlotID) {
+					moveSlot = ms;
+					movie.removeSlot(ms);
+				}
+			}
+		}
+		return moveSlot;
+	}
 	@Override
 	protected void SaveObjects(ObjectOutputStream out) throws IOException {
 		out.writeObject(this.Movies);
