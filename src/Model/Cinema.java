@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 import Controller.CinemaManager;
+import Controller.CineplexManager;
 import Controller.MovieManager;
 
 public class Cinema {
@@ -11,8 +12,8 @@ public class Cinema {
     private String CinemaName;
     private ArrayList<Integer> MovieID;
     
-    public Cinema(String name, int ctype) {
-    	this.CinemaID = CinemaManager.getInstance().getSize() + 1;
+    public Cinema(int id, String name, int ctype) {
+    	this.CinemaID = id;
     	this.CinemaName = name;
     	setType(ctype);
     }

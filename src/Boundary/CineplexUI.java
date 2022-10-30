@@ -9,7 +9,7 @@ public class CineplexUI {
 		this.sc = sc;
 	}
 	
-	public void HandleCinemaUI() {
+	public void HandleCineplexUI() {
 		System.out.println("What would you like to do?");
 		System.out.println("1. Create/View/Update/Remove Cineplex");
 		System.out.println("2. Create/View/Update/Remove Cinema for Cineplex");
@@ -28,4 +28,19 @@ public class CineplexUI {
 			break;
 		}
 	}
+	
+	private void addCineplex() {
+		System.out.println("Add Cinema");
+		
+	}
+	private void viewCineplex() {
+		
+	}
+	private void updateCineplex() {
+		
+	}
+	private void removeCineplex() {
+		
+	}
+	
 }
