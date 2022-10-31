@@ -43,6 +43,7 @@ public class MovieManager extends ManagerBase {
 		if (oneMovie == null)
 			return null;
 		oneMovie.setStatus(MovieStatus.END_OF_SHOWING);
+		this.Save();
 		return oneMovie;
 	}
 
@@ -103,6 +104,7 @@ public class MovieManager extends ManagerBase {
 		Movie movie = MovieManager.getInstance().getOneMovie(movieID);
 		if (movie == null) return null;
 		movie.AddSlot(ms);
+		this.Save();
 		return ms;
 	}
 	public MovieSlot removeMovieSlot(int movieSlotID) {
@@ -115,6 +117,7 @@ public class MovieManager extends ManagerBase {
 				}
 			}
 		}
+		this.Save();
 		return movieSlot;
 	}
 

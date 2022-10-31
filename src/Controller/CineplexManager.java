@@ -47,6 +47,7 @@ public class CineplexManager extends ManagerBase {
 					break;
 			}
 		}
+		this.Save();
 		return toUpdate;
 	}
 	public Cineplex removeCineplex(int cID) {
@@ -57,6 +58,7 @@ public class CineplexManager extends ManagerBase {
 				this.Cineplexes.remove(i);
 			}
 		}
+		this.Save();
 		return cineplex;
 	}
 	public ArrayList<Cineplex> getCineplexes() {

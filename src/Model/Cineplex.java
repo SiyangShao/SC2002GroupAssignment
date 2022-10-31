@@ -45,6 +45,7 @@ public class Cineplex implements Serializable {
 	public Cinema addCinema(String name, int cinemaType) {
 		Cinema cinema = new Cinema(name, cinemaType);
 		this.Cinemas.add(cinema);
+		CineplexManager.getInstance().Save();
 		return cinema;
 	}
 	public Cinema updateCinema(int cinemaID, int choice, Object value) {
@@ -58,6 +59,7 @@ public class Cineplex implements Serializable {
 			case 1: cinema.setCinemaName((String) value); break;
 			case 2: cinema.setType((int) value); break;
 		}
+		CineplexManager.getInstance().Save();
 		return cinema;
 	}
 	public Cinema removeCinema(int cinemaID) {
@@ -67,6 +69,7 @@ public class Cineplex implements Serializable {
 				cinema = this.Cinemas.get(i);
 				this.Cinemas.remove(i);
 		}
+		CineplexManager.getInstance().Save();
 		return cinema;
 	}
 	public ArrayList<Cinema> getCinemas() {
