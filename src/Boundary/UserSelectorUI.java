@@ -130,10 +130,16 @@ public class UserSelectorUI {
                 int movieChoice1 = sc.nextInt();
 
                 // Searching through the listOfMovies for that MovieID, then printing out the details
+                boolean foundMovieID1 = false;
                 for (int i = 0; i < listOfMovies.size(); i++) {
                     if (listOfMovies.get(i).getMovieID() == movieChoice1) {
+                        foundMovieID1 = true;
                         listOfMovies.get(i).printDetails();
                     }
+                }
+
+                if (!foundMovieID1) {
+                    System.out.println("Please enter a valid Movie ID");
                 }
 
                 // Possible branch to show the show timings and then buying the tickets???
@@ -153,10 +159,16 @@ public class UserSelectorUI {
                 int movieChoice2 = sc.nextInt();
 
                 // Searching through the listOfMovies for that MovieID, then printing out the details
+                boolean foundMovieID2 = false;
                 for (int i = 0; i < listOfMovies.size(); i++) {
                     if (listOfMovies.get(i).getMovieID() == movieChoice2) {
+                        foundMovieID2 = true;
                         listOfMovies.get(i).printDetails();
                     }
+                }
+
+                if (!foundMovieID2) {
+                    System.out.println("Please enter a valid Movie ID");
                 }
 
                 // Possible branch to show the show timings and then buying the tickets???
