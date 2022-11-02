@@ -1,6 +1,5 @@
 package Model;
 
-import Controller.CineplexManager;
 import Controller.MovieManager;
 
 import java.time.LocalDateTime;
@@ -8,11 +7,26 @@ import java.util.ArrayList;
 
 public class MovieSlot {
     private LocalDateTime datetime;
+
+    private Movie.DateType dateType;
+
+    static private double holidayPrice = 1.2;
+
+
+    private CinemaType cinemaType;
+
+    static private double platinumPrice = 1.5;
+
+    static private double goldPrice = 1.2;
+
+    static private double normalPrice = 1;
+
     private int MovieID;
     private int CinemaID;
     private int MovieSlotID;
 
     private String MovieName;
+
     /*
     seats are unsold out tickets, and tickets are sold out seats
      */
@@ -20,7 +34,16 @@ public class MovieSlot {
 
     private final ArrayList<Ticket> tickets;
 
-    public MovieSlot(LocalDateTime datetime, int MOVIE, int CINEMA, int seat_numbers, double basePrice) {
+    public MovieSlot(LocalDateTime datetime, int MOVIE, int CINEMA, int seat_numbers, double basePrice, Movie.DateType dateType, CinemaType cinemaType) {
+        switch (dateType) {
+            case HOLIDAY -> basePrice *= holidayPrice;
+            default -> basePrice *= normalPrice;
+        }
+        switch (cinemaType) {
+            case PLATINUM -> basePrice *= platinumPrice;
+            case GOLD -> basePrice *= goldPrice;
+            default -> basePrice *= normalPrice;
+        }
         setDatetime(datetime);
         setMovieID(MOVIE);
         setCinemaID(CINEMA);
@@ -36,10 +59,10 @@ public class MovieSlot {
     private void setMovieSlotID() {
         int count = 0;
         ArrayList<Movie> Movies = MovieManager.getInstance().getMovies();
-        for (int i = 0 ; i < Movies.size(); i++) {
+        for (int i = 0; i < Movies.size(); i++) {
             count += Movies.get(i).getSlotCount();
         }
-        MovieSlotID = count+1;
+        MovieSlotID = count + 1;
 
     }
 
@@ -74,6 +97,7 @@ public class MovieSlot {
     public void setCinemaID(int cinemaID) {
         CinemaID = cinemaID;
     }
+
     public String getMovieName() {
         return MovieName;
     }

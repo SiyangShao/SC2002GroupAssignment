@@ -82,4 +82,7 @@ public class Cineplex implements Serializable {
 		}
 		return cinema;
 	}
+	public CinemaType getCinemaType(int cinemaID){
+		return this.getOneCinema(cinemaID).getType();
+	}
 }

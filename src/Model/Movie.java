@@ -1,7 +1,6 @@
 package Model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import Controller.MovieManager;
@@ -210,4 +209,8 @@ public class Movie implements Serializable {
         AddSlot(newSlot);
     }
 
+    public enum DateType {
+        HOLIDAY,
+        NORMAL
+    }
 }

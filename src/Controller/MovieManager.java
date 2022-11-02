@@ -1,18 +1,13 @@
 package Controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import Model.*;
 import Utils.Config;
-import Utils.Saveable;
 
 public class MovieManager extends ManagerBase {
 	private ArrayList<Movie> Movies;
@@ -98,9 +93,12 @@ public class MovieManager extends ManagerBase {
 		return movie;
 	}
 
-	public MovieSlot addMovieSlot(LocalDateTime dt, int CinemaID, int movieID, int seatNumber, int basePrice) {
+	public MovieSlot addMovieSlot(LocalDateTime dt,int CineplexID, int CinemaID, int movieID, int seatNumber, int basePrice, CalendarManager calendarManager, CineplexManager cineplexManager) {
 		// check if conflict time, if conflict return error, else add (WIP)
-		MovieSlot ms = new MovieSlot(dt, movieID, CinemaID, seatNumber, basePrice);
+
+		Movie.DateType dateType = calendarManager.DateType(dt);
+		CinemaType cinemaType = cineplexManager.getCinemaType(CineplexID, CinemaID);
+		MovieSlot ms = new MovieSlot(dt, movieID, CinemaID, seatNumber, basePrice, dateType, cinemaType);
 		Movie movie = MovieManager.getInstance().getOneMovie(movieID);
 		if (movie == null) return null;
 		movie.AddSlot(ms);

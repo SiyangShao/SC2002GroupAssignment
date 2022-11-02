@@ -72,7 +72,13 @@ public class CineplexManager extends ManagerBase {
 		}
 		return cineplex;
 	}
-
+	public Model.CinemaType getCinemaType(int cineplexID, int cinemaID) {
+		Cineplex cineplex = this.getOneCineplex(cineplexID);
+		if (cineplex == null) return null;
+		else {
+			return cineplex.getCinemaType(cinemaID);
+		}
+	}
 	public int getSize() {
 		return this.Cineplexes.size();
 	}
