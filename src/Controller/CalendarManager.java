@@ -13,11 +13,11 @@ public class CalendarManager implements Saveable {
 
 	}
 
-	public Movie.DateType DateType(LocalDateTime datetime) {
+	public Model.DateType DateType(LocalDateTime datetime) {
 		if(Holidays.contains(datetime)){
-			return Movie.DateType.HOLIDAY;
+			return Model.DateType.HOLIDAY;
 		}
-		return Movie.DateType.NORMAL;
+		return Model.DateType.NORMAL;
 	}
 
     public void AddHoliday(LocalDateTime datetime){

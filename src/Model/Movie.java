@@ -209,8 +209,4 @@ public class Movie implements Serializable {
         AddSlot(newSlot);
     }
 
-    public enum DateType {
-        HOLIDAY,
-        NORMAL
-    }
 }

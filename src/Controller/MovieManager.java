@@ -96,7 +96,7 @@ public class MovieManager extends ManagerBase {
 	public MovieSlot addMovieSlot(LocalDateTime dt,int CineplexID, int CinemaID, int movieID, int seatNumber, int basePrice, CalendarManager calendarManager, CineplexManager cineplexManager) {
 		// check if conflict time, if conflict return error, else add (WIP)
 
-		Movie.DateType dateType = calendarManager.DateType(dt);
+		Model.DateType dateType = calendarManager.DateType(dt);
 		CinemaType cinemaType = cineplexManager.getCinemaType(CineplexID, CinemaID);
 		MovieSlot ms = new MovieSlot(dt, movieID, CinemaID, seatNumber, basePrice, dateType, cinemaType);
 		Movie movie = MovieManager.getInstance().getOneMovie(movieID);
