@@ -114,14 +114,14 @@ public class UserSelectorUI {
                 String keyWord = sc.nextLine();
 
                 System.out.println("Displaying the list of movies with keyword \"" + keyWord + "\"...");
-                System.out.println("================================");
+                System.out.println("=====================================");
                 System.out.println("MOVIE ID\t\tMOVIE TITLE");
-                System.out.println("================================");
+                System.out.println("=====================================");
 
                 // Searching through the listOfMovies for titles have contain the keyword, then displaying it
                 for (int i = 0; i < listOfMovies.size(); i++) {
                     if (listOfMovies.get(i).getTitle().contains(keyWord)) {
-                        System.out.println(i + 1 + ".\t\t" + listOfMovies.get(i).getTitle());
+                        System.out.println(i + 1 + ".\t\t\t" + listOfMovies.get(i).getTitle());
                     }
                 }
 
@@ -140,13 +140,13 @@ public class UserSelectorUI {
                 break;
             case 2:
                 System.out.println("Displaying the list of movies...");
-                System.out.println("================================");
+                System.out.println("=====================================");
                 System.out.println("MOVIE ID\t\tMOVIE TITLE");
-                System.out.println("================================");
+                System.out.println("=====================================");
 
                 // Looping through the ArrayList to get all the movie titles
                 for (int i = 0; i < listOfMovies.size(); i++) {
-                    System.out.println(i + 1 + ".\t\t" + listOfMovies.get(i).getTitle());
+                    System.out.println(i + 1 + ".\t\t\t" + listOfMovies.get(i).getTitle());
                 }
                 // User can select the movie by the MovieID to view the details of the movie
                 System.out.printf("Please select the Movie ID to view the details of the movie: ");
