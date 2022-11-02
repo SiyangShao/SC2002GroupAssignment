@@ -1,9 +1,12 @@
 package Boundary;
 
 import Controller.UserManager;
+import Controller.MovieManager;
 import Model.User;
+import Model.Movie;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class UserSelectorUI {
 
@@ -88,25 +91,75 @@ public class UserSelectorUI {
 
     public void DisplayMovieGoerActions()
     {
+        ArrayList<Movie> listOfMovies = MovieManager.getInstance().getMovies();
+
         User u = this.GetMovieGoerInfo();
         System.out.println("\n========== Movie Goer ==========\n");
         System.out.println("Please select what you want to do:");
-        System.out.println("1. Search movies");
-        System.out.println("2. List movies");
-        System.out.println("3. View movies details");
-        System.out.println("4. Purchase movie tickets"); // Further branch to seats also
-        System.out.println("5. View booking history");
-        System.out.println("6. List top 5 movies by ticket sales");
-        System.out.println("7. List top 5 movies by overall ratings");
-        System.out.println("8. Exit");
+        System.out.println("1. Search movies");     // View movie details can be selected from this option
+        System.out.println("2. List movies");       // View movie details can be selected from this option
+        System.out.println("3. Purchase movie tickets"); // Further branch to seats also
+        System.out.println("4. View booking history");
+        System.out.println("5. List top 5 movies by ticket sales");
+        System.out.println("6. List top 5 movies by overall ratings");
+        System.out.println("7. Exit");
         System.out.println("\n================================\n");
 
         int choice = sc.nextInt();
         // Getting user's choice, then deciding which options to show
         switch (choice) {
             case 1:
+                // Getting the keyword from the user to be searched
+                System.out.printf("Please enter the keyword to be searched: ");
+                String keyWord = sc.nextLine();
+
+                System.out.println("Displaying the list of movies with keyword \"" + keyWord + "\"...");
+                System.out.println("================================");
+                System.out.println("MOVIE ID\t\tMOVIE TITLE");
+                System.out.println("================================");
+
+                // Searching through the listOfMovies for titles have contain the keyword, then displaying it
+                for (int i = 0; i < listOfMovies.size(); i++) {
+                    if (listOfMovies.get(i).getTitle().contains(keyWord)) {
+                        System.out.println(i + 1 + ".\t\t" + listOfMovies.get(i).getTitle());
+                    }
+                }
+
+                // User can select the movie by the MovieID to view the details of the movie
+                System.out.printf("Please select the Movie ID to view the details of the movie: ");
+                int movieChoice1 = sc.nextInt();
+
+                // Searching through the listOfMovies for that MovieID, then printing out the details
+                for (int i = 0; i < listOfMovies.size(); i++) {
+                    if (listOfMovies.get(i).getMovieID() == movieChoice1) {
+                        listOfMovies.get(i).printDetails();
+                    }
+                }
+
+                // Possible branch to show the show timings and then buying the tickets???
                 break;
             case 2:
+                System.out.println("Displaying the list of movies...");
+                System.out.println("================================");
+                System.out.println("MOVIE ID\t\tMOVIE TITLE");
+                System.out.println("================================");
+
+                // Looping through the ArrayList to get all the movie titles
+                for (int i = 0; i < listOfMovies.size(); i++) {
+                    System.out.println(i + 1 + ".\t\t" + listOfMovies.get(i).getTitle());
+                }
+                // User can select the movie by the MovieID to view the details of the movie
+                System.out.printf("Please select the Movie ID to view the details of the movie: ");
+                int movieChoice2 = sc.nextInt();
+
+                // Searching through the listOfMovies for that MovieID, then printing out the details
+                for (int i = 0; i < listOfMovies.size(); i++) {
+                    if (listOfMovies.get(i).getMovieID() == movieChoice2) {
+                        listOfMovies.get(i).printDetails();
+                    }
+                }
+
+                // Possible branch to show the show timings and then buying the tickets???
                 break;
             case 3:
                 break;
@@ -116,10 +169,8 @@ public class UserSelectorUI {
                 break;
             case 6:
                 break;
-            case 7:
-                break;
             // Exiting
-            case 8:
+            case 7:
                 System.out.println("Exiting...");
                 break;
         }while(choice != 8);

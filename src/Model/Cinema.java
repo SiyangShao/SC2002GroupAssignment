@@ -3,7 +3,6 @@ package Model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-;
 import Controller.CineplexManager;
 import Controller.MovieManager;
 

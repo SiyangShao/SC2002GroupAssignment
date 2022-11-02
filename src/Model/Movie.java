@@ -150,6 +150,27 @@ public class Movie implements Serializable {
 		MovieRating = movieRating;
 	}
 
+    // To print out the details of the movie
+    public void printDetails() {
+        System.out.println(Title);
+        System.out.println("================================");
+        System.out.println("Showing Status : " + Status);
+        System.out.println("Movie Type     : " + Type);
+
+        System.out.printf("Cast           : ");
+        for (int i = 0; i < Cast.size() - 1; i++) {
+            System.out.printf(Cast.get(i) + ", ");
+        }
+        System.out.printf(Cast.get(Cast.size() - 1) + "\n");
+
+        System.out.println("Director       : " + Director);
+        System.out.println("Synopsis       : " + Description);
+        System.out.println("Type           : " + Type);
+        System.out.println("Movie Rating   : " + MovieRating);
+        System.out.println("Review Rating  : " + ReviewRating);
+
+    }
+
 	public void AddSlot(MovieSlot newSlot) {
         Slots.add(newSlot);
     }
