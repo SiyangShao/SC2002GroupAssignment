@@ -142,7 +142,8 @@ public class MovieUI {
 
 	private String getInput_Title() {
 		System.out.println("Enter Movie Title");
-		return sc.next();
+		sc.nextLine();		// To remove the carriage return character
+		return sc.nextLine();
 	}
 
 	private int getInput_Status() {
@@ -160,23 +161,26 @@ public class MovieUI {
 	}
 	private String getInput_Desc() {
 		System.out.println("Enter Movie Description");
-		return sc.next();
+		sc.nextLine();		// To remove the carriage return character
+		return sc.nextLine();
 	}
 
 	private ArrayList<String> getInput_Cast() {
 		ArrayList<String> cast = new ArrayList<String>();
 		System.out.println("Enter How Many Cast Members:");
 		int amount = sc.nextInt();
+		sc.nextLine();		// To remove the carriage return character
 		for (int i = 0; i < amount; i++) {
 			System.out.println("Enter Cast Name:");
-			cast.add(sc.next());
+			cast.add(sc.nextLine());
 		}
 		return cast;
 	}
 
 	private String getInput_Direc() {
 		System.out.println("Enter Movie Director");
-		return sc.next();
+		sc.nextLine();		// To remove the carriage return character
+		return sc.nextLine();
 	}
 
 }

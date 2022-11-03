@@ -107,6 +107,7 @@ public class UserSelectorUI {
                 case 1:
                     // Getting the keyword from the user to be searched
                     System.out.printf("Please enter the keyword to be searched: ");
+                    sc.nextLine();		// To remove the carriage return character
                     String keyWord = sc.nextLine();
 
                     System.out.println("Displaying the list of movies with keyword \"" + keyWord + "\"...");
@@ -116,7 +117,7 @@ public class UserSelectorUI {
 
                     // Searching through the listOfMovies for titles have contain the keyword, then displaying it
                     for (int i = 0; i < listOfMovies.size(); i++) {
-                        if (listOfMovies.get(i).getTitle().contains(keyWord)) {
+                        if (listOfMovies.get(i).getTitle().toLowerCase().contains(keyWord.toLowerCase())) {
                             System.out.println(i + 1 + ".\t\t\t" + listOfMovies.get(i).getTitle());
                         }
                     }
@@ -178,7 +179,7 @@ public class UserSelectorUI {
                         System.out.println("Movie ID not found");
                         break;
                     }
-                    // TODO: Create a function to lsit movie slot list
+                    // TODO: Create a function to list movie slot list
                     System.out.println("Please enter the movie slot ID you want to book: ");
                     int movieSlotID = sc.nextInt();
                     Model.MovieSlot movieSlot = movie.getSlot(movieSlotID);
@@ -211,6 +212,9 @@ public class UserSelectorUI {
                                 ticketTypes.add(Model.TicketType.STUDENT);
                                 break;
                         }
+
+                        movieSlot.showSeats();
+
                         System.out.println("Please enter the seat number you want to book: ");
                         int seatNumber = sc.nextInt();
                         seatNumbers.add(seatNumber);

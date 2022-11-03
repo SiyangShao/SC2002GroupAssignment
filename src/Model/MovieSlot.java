@@ -106,8 +106,26 @@ public class MovieSlot implements Serializable {
         System.out.println("There are " + remainSeatNumber() + " seats left in this slot.");
         System.out.println("Remaining Seats:");
         for (Seat seat : this.seats) {
-            System.out.println(seat.getSeatNo());
+
+            // If seat number + 1 is more than 4, leave a space for the aisle, except for the first row
+            if ((seat.getSeatNo() + 1) % 4 == 1 && seat.getSeatNo() != 0) {
+                System.out.printf("\t");
+            }
+
+            // If seat number + 1 is more than 8, go to the next row, except for the first row
+            if ((seat.getSeatNo() + 1) % 8 == 1 && seat.getSeatNo() != 0) {
+                System.out.println();
+            }
+
+            // If single digit, make into double digit
+            if ((seat.getSeatNo() + 1) < 10) {
+                System.out.printf("[ 0" + (int) (seat.getSeatNo() + 1) + " ] ");
+                continue;
+            }
+
+            System.out.printf("[ " + (int) (seat.getSeatNo() + 1) + " ] ");
         }
+        System.out.println();
     }
 
     public boolean checkSeat(int seatNo) {

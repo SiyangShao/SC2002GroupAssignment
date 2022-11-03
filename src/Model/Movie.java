@@ -18,8 +18,6 @@ public class Movie implements Serializable {
 
     private ArrayList<MovieSlot> Slots;
 
-
-
     private int DurationMins;
 
     public Movie(String title, int type,  int status, int movieRating, String desc, int duration, String direc) {
@@ -169,6 +167,7 @@ public class Movie implements Serializable {
         System.out.println("Type           : " + Type);
         System.out.println("Movie Rating   : " + MovieRating);
         System.out.println("Review Rating  : " + ReviewRating);
+        System.out.println("Runtime (Mins) : " + DurationMins);
 
     }
 
