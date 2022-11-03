@@ -104,6 +104,7 @@ public class CinemaUI {
 		int movieID = sc.nextInt();
 		System.out.println("Enter Movie Showtime (24 hour format)");
 		LocalDateTime dt = getInput_DateTime();
+		// TODO : input base price and set for movieslot
 		MovieSlot movieslot = MovieManager.getInstance().addMovieSlot(dt,cinema, movieID, 50, 8);
 		if (movieslot == null) {
 			System.out.println("Invalid Movie ID. Try Again");
