@@ -32,6 +32,7 @@ public class Movie implements Serializable {
         this.Director = direc;
         this.MovieID = MovieManager.getInstance().getSize() + 1;
         this.Slots = new ArrayList<>();
+        this.Cast = new ArrayList<>();
     }
 
     public Movie(String title, int type,  int status, int movieRating, String desc, String direc, ArrayList<String> c) {
@@ -45,6 +46,7 @@ public class Movie implements Serializable {
         this.Cast = c;
         this.MovieID = MovieManager.getInstance().getSize() + 1;
         this.Slots = new ArrayList<>();
+        this.Cast = new ArrayList<>();
     }
 
     public int getMovieID() {
@@ -157,11 +159,11 @@ public class Movie implements Serializable {
         System.out.println("Movie Type     : " + Type);
 
         System.out.printf("Cast           : ");
-        for (int i = 0; i < Cast.size() - 1; i++) {
-            System.out.printf(Cast.get(i) + ", ");
+        for(int i = 0 ; i < Cast.size(); ++i){
+            System.out.printf(Cast.get(i) + (i == Cast.size() - 1 ? "" : ","));
         }
-        System.out.printf(Cast.get(Cast.size() - 1) + "\n");
-
+        System.out.println();
+        // figure out how to not , at the end later
         System.out.println("Director       : " + Director);
         System.out.println("Synopsis       : " + Description);
         System.out.println("Type           : " + Type);

@@ -8,6 +8,7 @@ import Utils.Saveable;
 
 public class CalendarManager implements Saveable {
 	private ArrayList<LocalDateTime> Holidays;
+	private static CalendarManager instance;
 
 	public CalendarManager() {
 
@@ -37,6 +38,13 @@ public class CalendarManager implements Saveable {
 	public void Load(String filepath) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public static CalendarManager getInstance() {
+		if (instance == null) {
+			instance = new CalendarManager();
+		}
+		return instance;
 	}
 
 	// add remove etc

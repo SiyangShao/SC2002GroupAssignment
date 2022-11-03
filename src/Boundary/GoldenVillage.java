@@ -1,5 +1,6 @@
 package Boundary;
 
+import Controller.CalendarManager;
 import Controller.CineplexManager;
 import Controller.MovieManager;
 import Controller.UserManager;
@@ -15,6 +16,7 @@ public class GoldenVillage {
 		UserManager.getInstance().Load(CurPath);
 		MovieManager.getInstance().Load(CurPath);
 		CineplexManager.getInstance().Load(CurPath);
+		CalendarManager.getInstance().Load(CurPath);
 		int choice;
 		Scanner sc = new Scanner(System.in);
 		UserSelectorUI userSelectorUI = new UserSelectorUI(sc);
