@@ -103,9 +103,14 @@ public class MovieSlot implements Serializable {
     }
 
     public void showSeats() {
+        int seatCount = 0;      // To keep track which seats are taken
         System.out.println("There are " + remainSeatNumber() + " seats left in this slot.");
-        System.out.println("Remaining Seats:");
+        System.out.println("Please choose a seat from the following seating plan:");
         for (Seat seat : this.seats) {
+            // If the seat number is taken, print "[ XX ]" instead
+            while (seat.getSeatNo() != seatCount++) {
+                System.out.printf("[ XX ] ");
+            }
 
             // If seat number + 1 is more than 4, leave a space for the aisle, except for the first row
             if ((seat.getSeatNo() + 1) % 4 == 1 && seat.getSeatNo() != 0) {
@@ -122,6 +127,8 @@ public class MovieSlot implements Serializable {
                 System.out.printf("[ 0" + (int) (seat.getSeatNo() + 1) + " ] ");
                 continue;
             }
+
+
 
             System.out.printf("[ " + (int) (seat.getSeatNo() + 1) + " ] ");
         }

@@ -105,6 +105,12 @@ public class UserSelectorUI {
             // Getting user's choice, then deciding which options to show
             switch (choice) {
                 case 1:
+                    // If current listOfMovies have no movies inside
+                    if (listOfMovies.size() == 0) {
+                        System.out.println("Sorry there are currently no movies!");
+                        break;
+                    }
+
                     // Getting the keyword from the user to be searched
                     System.out.printf("Please enter the keyword to be searched: ");
                     sc.nextLine();		// To remove the carriage return character
@@ -116,18 +122,25 @@ public class UserSelectorUI {
                     System.out.println("=====================================");
 
                     // Searching through the listOfMovies for titles have contain the keyword, then displaying it
+                    boolean foundMovieID1 = false;
                     for (int i = 0; i < listOfMovies.size(); i++) {
                         if (listOfMovies.get(i).getTitle().toLowerCase().contains(keyWord.toLowerCase())) {
                             System.out.println(i + 1 + ".\t\t\t" + listOfMovies.get(i).getTitle());
+                            foundMovieID1 = true;
                         }
                     }
 
+                    // If cannot find any movies that contain the keyword
+                    if (!foundMovieID1) {
+                        System.out.println("Sorry there are currently no movies that match " + keyWord + "!");
+                        break;
+                    }
                     // User can select the movie by the MovieID to view the details of the movie
                     System.out.printf("Please select the Movie ID to view the details of the movie: ");
                     int movieChoice1 = sc.nextInt();
 
                     // Searching through the listOfMovies for that MovieID, then printing out the details
-                    boolean foundMovieID1 = false;
+                    foundMovieID1 = false;
                     for (int i = 0; i < listOfMovies.size(); i++) {
                         if (listOfMovies.get(i).getMovieID() == movieChoice1) {
                             foundMovieID1 = true;
@@ -142,10 +155,18 @@ public class UserSelectorUI {
                     // Possible branch to show the show timings and then buying the tickets???
                     break;
                 case 2:
+                    // If current listOfMovies have no movies inside
+                    if (listOfMovies.size() == 0) {
+                        System.out.println("Sorry there are currently no movies!");
+                        break;
+                    }
+
                     System.out.println("Displaying the list of movies...");
                     System.out.println("=====================================");
                     System.out.println("MOVIE ID\t\tMOVIE TITLE");
                     System.out.println("=====================================");
+
+
 
                     // Looping through the ArrayList to get all the movie titles
                     for (int i = 0; i < listOfMovies.size(); i++) {
@@ -216,7 +237,7 @@ public class UserSelectorUI {
                         movieSlot.showSeats();
 
                         System.out.println("Please enter the seat number you want to book: ");
-                        int seatNumber = sc.nextInt();
+                        int seatNumber = sc.nextInt() - 1;
                         seatNumbers.add(seatNumber);
                     }
                     u.bookSeats(seatNumbers, ticketTypes, movieSlot);
