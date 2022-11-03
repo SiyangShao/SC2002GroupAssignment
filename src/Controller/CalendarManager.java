@@ -1,12 +1,16 @@
 package Controller;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import Model.Movie;
+import Utils.Config;
 import Utils.Saveable;
 
-public class CalendarManager implements Saveable {
+public class CalendarManager extends ManagerBase {
 	private ArrayList<LocalDateTime> Holidays;
 	private static CalendarManager instance;
 
@@ -29,15 +33,20 @@ public class CalendarManager implements Saveable {
         Holidays.remove(datetime);
     }
 	@Override
-	public void Save() {
-		// TODO Auto-generated method stub
+	protected void SaveObjects(ObjectOutputStream out) throws IOException
+	{
+		out.writeObject(this.Holidays);
+	}
 
+	@Override
+	protected void LoadObjects(ObjectInputStream in) throws ClassNotFoundException, IOException
+	{
+		this.Holidays = (ArrayList) in.readObject();
 	}
 
 	@Override
 	public void Load(String filepath) {
-		// TODO Auto-generated method stub
-
+		super.Load(filepath + Config.CalendarManagerFileName);
 	}
 
 	public static CalendarManager getInstance() {
