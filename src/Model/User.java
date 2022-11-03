@@ -59,6 +59,10 @@ public class User implements Serializable {
 
     public void viewBookingHistory(ArrayList<Movie> AllMovies) {
         System.out.println("Booking History: (shown in transaction ID)");
+        if(TransactionID.isEmpty()){
+            System.out.println("No booking history");
+            return;
+        }
         for (String transactionID : TransactionID) {
             System.out.println(transactionID);
             // using # to divide string transactionID

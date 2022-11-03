@@ -118,8 +118,8 @@ public class CinemaUI {
 			System.out.println("No Showtimes Found.");
 			return;
 		}
-		for (int i =1 ; i <= msList.size(); i++) {
-				for (int j = 1; j <= msList.get(i).size(); j++) {
+		for (int i =0 ; i < msList.size(); i++) {
+				for (int j = 0; j < msList.get(i).size(); j++) {
 					MovieSlot slot = msList.get(i).get(j);
 					if (byActualID) {
 						System.out.println(slot.getMovieSlotID() + ". Movie" + slot.getMovieName() + " showing at " + slot.getDatetime().format(formatter));

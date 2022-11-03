@@ -1,6 +1,8 @@
 package Model;
 
-public class Ticket extends Seat {
+import java.io.Serializable;
+
+public class Ticket extends Seat implements Serializable {
     //    private int MovieID;
     private TicketType type;
     private double finalPrice;

@@ -15,7 +15,7 @@ public class CalendarManager extends ManagerBase {
 	private static CalendarManager instance;
 
 	public CalendarManager() {
-
+		this.Holidays = new ArrayList<>();
 	}
 
 	public Model.DateType DateType(LocalDateTime datetime) {

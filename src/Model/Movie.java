@@ -210,5 +210,13 @@ public class Movie implements Serializable {
         removeSlot(slotBefore);
         AddSlot(newSlot);
     }
+    public MovieSlot getSlot(int slotID) {
+        for (MovieSlot i : Slots) {
+            if (i.getMovieSlotID() == slotID) {
+                return i;
+            }
+        }
+        return null;
+    }
 
 }

@@ -2,10 +2,11 @@ package Model;
 
 import Controller.MovieManager;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class MovieSlot {
+public class MovieSlot implements Serializable {
     private LocalDateTime datetime;
 
     static private final double platinumPrice = 1.5;

@@ -1,6 +1,8 @@
 package Model;
 
-public class Seat {
+import java.io.Serializable;
+
+public class Seat implements Serializable {
     protected int seatNo;
     protected int MovieID;
 
