@@ -62,6 +62,7 @@ public class UserSelectorUI {
                     cineplexUI.HandleCineplexUI();
                     break;
                 case 3:
+                    movieUI.HandleSystemSettings();
                     break;
                 // Exiting
                 case 4:
@@ -113,7 +114,7 @@ public class UserSelectorUI {
 
                     // Getting the keyword from the user to be searched
                     System.out.printf("Please enter the keyword to be searched: ");
-                    sc.nextLine();		// To remove the carriage return character
+                    sc.nextLine();        // To remove the carriage return character
                     String keyWord = sc.nextLine();
 
                     System.out.println("Displaying the list of movies with keyword \"" + keyWord + "\"...");
@@ -167,13 +168,12 @@ public class UserSelectorUI {
                     System.out.println("=====================================");
 
 
-
                     // Looping through the ArrayList to get all the movie titles
                     for (int i = 0; i < listOfMovies.size(); i++) {
                         System.out.println(i + 1 + ".\t\t\t" + listOfMovies.get(i).getTitle());
                     }
                     // User can select the movie by the MovieID to view the details of the movie
-                    System.out.printf("Please select the Movie ID to view the details of the movie: ");
+                    System.out.print("Please select the Movie ID to view the details of the movie: ");
                     int movieChoice2 = sc.nextInt();
 
                     // Searching through the listOfMovies for that MovieID, then printing out the details
@@ -192,15 +192,27 @@ public class UserSelectorUI {
                     // Possible branch to show the show timings and then buying the tickets???
                     break;
                 case 3:
-                    // TODO: Create List Movies
-                    System.out.println("Please enter the movie ID you want to book: ");
+                    System.out.println("Here are the list of movies:");
+                    System.out.println("=====================================");
+                    System.out.println("MOVIE ID\t\tMOVIE TITLE");
+                    System.out.println("=====================================");
+                    for (Movie listOfMovie : listOfMovies) {
+                        System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle());
+                    }
+                    System.out.println("Please select the Movie ID to view the details of the movie: ");
                     int movieID = sc.nextInt();
                     Movie movie = MovieManager.getInstance().getOneMovie(movieID);
                     if (movie == null) {
                         System.out.println("Movie ID not found");
                         break;
                     }
-                    // TODO: Create a function to list movie slot list
+                    System.out.println("Here are the list of movie slots:");
+                    System.out.println("=====================================");
+                    System.out.println("MOVIE SLOT ID\t\tMOVIE SLOT\t\tShow Time\t\tCinemaID\t\tSeats Rest");
+                    System.out.println("=====================================");
+                    for (Model.MovieSlot movieSlot : movie.getSlots()) {
+                        System.out.println(movieSlot.getMovieSlotID() + ".\t\t\t" + movieSlot.getMovieName() + "\t\t" + movieSlot.getShowTime() + "\t\t" + movieSlot.getCinemaID() + "\t\t" + movieSlot.remainSeatNumber());
+                    }
                     System.out.println("Please enter the movie slot ID you want to book: ");
                     int movieSlotID = sc.nextInt();
                     Model.MovieSlot movieSlot = movie.getSlot(movieSlotID);

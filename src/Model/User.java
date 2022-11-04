@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.UserManager;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
@@ -23,6 +25,7 @@ public class User implements Serializable {
         this.Phone = Phone;
         this.TransactionID = new ArrayList<>();
         this.CancelledTransactionID = new ArrayList<>();
+        UserManager.getInstance().Save();
     }
 
     public String getUserId() {
@@ -94,6 +97,7 @@ public class User implements Serializable {
         String TransactionID = movieSlot.bookSeats(seatsNo, types);
         if (TransactionID == null) return false;
         this.TransactionID.add(TransactionID);
+        UserManager.getInstance().Save();
         return true;
     }
 
@@ -106,6 +110,7 @@ public class User implements Serializable {
             this.TransactionID.remove(TransactionID);
             TransactionID = "F" + TransactionID;
             this.CancelledTransactionID.add(TransactionID);
+            UserManager.getInstance().Save();
             return true;
         } else {
             System.out.println("Transaction ID not found.");

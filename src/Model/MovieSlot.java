@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.CalendarManager;
 import Controller.MovieManager;
 
 import java.io.Serializable;
@@ -9,16 +10,19 @@ import java.util.ArrayList;
 public class MovieSlot implements Serializable {
     private LocalDateTime datetime;
 
-    static private final double platinumPrice = 1.5;
+    static private double platinumPrice = 1.5;
 
-    static private final double goldPrice = 1.2;
+    static private double goldPrice = 1.2;
 
-    static private final double normalPrice = 1;
+    static private double normalPrice = 1;
+
+    static private double HolidayPrice = 1.5;
 
     private int MovieID;
     private int CinemaID;
     private int MovieSlotID;
 
+    private double basePrice;
     private String MovieName;
 
     /*
@@ -40,17 +44,29 @@ public class MovieSlot implements Serializable {
             case GOLD -> basePrice *= goldPrice;
             default -> basePrice *= normalPrice;
         }
+        if(CalendarManager.getInstance().isHoliday(datetime)) {
+            basePrice *= HolidayPrice;
+        }
         setDatetime(datetime);
         setMovieID(MOVIE);
         setCinemaID(CINEMA);
         setMovieName(MOVIE);
+        setBasePrice(basePrice);
+        setMovieSlotID();
         this.seats = new ArrayList<>();
         for (int i = 0; i < seat_numbers; ++i) {
-            Seat newSeat = new Seat(i, this.MovieID, basePrice);
+            Seat newSeat = new Seat(i, this.MovieID);
             this.seats.add(newSeat);
         }
         this.tickets = new ArrayList<>();
-        setMovieSlotID();
+        MovieManager.getInstance().Save();
+    }
+    public void setPrice(CinemaType type, double price){
+        switch (type) {
+            case PLATINUM -> platinumPrice = price;
+            case GOLD -> goldPrice = price;
+            default -> normalPrice = price;
+        }
     }
     private void setMovieSlotID() {
         int count = 0;
@@ -59,7 +75,15 @@ public class MovieSlot implements Serializable {
             count += movie.getSlotCount();
         }
         MovieSlotID = count + 1;
+        MovieManager.getInstance().Save();
+    }
 
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public double getBasePrice() {
+        return basePrice;
     }
 
     public int getMovieSlotID() {
@@ -129,7 +153,6 @@ public class MovieSlot implements Serializable {
             }
 
 
-
             System.out.printf("[ " + (int) (seat.getSeatNo() + 1) + " ] ");
         }
         System.out.println();
@@ -150,9 +173,10 @@ public class MovieSlot implements Serializable {
                 System.out.println("You have successfully booked seat with SeatID: " + seatNo);
                 System.out.println("The type of the ticket is " + type);
                 this.seats.remove(seat);
-                Ticket newTicket = new Ticket(seatNo, this.MovieID, seat.getBasePrice(), type, transactionID);
+                Ticket newTicket = new Ticket(seatNo, this.MovieID, getBasePrice(), type, transactionID);
                 System.out.println("The final price of the ticket is " + newTicket.getFinalPrice());
                 this.tickets.add(newTicket);
+                MovieManager.getInstance().Save();
                 return newTicket.getFinalPrice();
             }
         }
@@ -184,6 +208,7 @@ public class MovieSlot implements Serializable {
         System.out.println("You have successfully booked " + seatsNo.size() + " seats.");
         System.out.println("The transaction ID is " + TransactionID);
         System.out.println("The total price is " + totalPrice);
+        MovieManager.getInstance().Save();
         return TransactionID;
     }
 
@@ -212,8 +237,9 @@ public class MovieSlot implements Serializable {
             if (ticket.getSeatNo() == seatNo) {
                 System.out.println("You have successfully removed ticket with SeatID: " + seatNo);
                 this.tickets.remove(ticket);
-                Seat newSeat = new Seat(seatNo, this.MovieID, ticket.getBasePrice());
+                Seat newSeat = new Seat(seatNo, this.MovieID);
                 this.seats.add(newSeat);
+                MovieManager.getInstance().Save();
                 return;
             }
         }
@@ -233,6 +259,11 @@ public class MovieSlot implements Serializable {
         for (int seatNo : seatNoList) {
             removeTicket(seatNo);
         }
+        MovieManager.getInstance().Save();
         return true;
+    }
+
+    public LocalDateTime getShowTime() {
+        return this.datetime;
     }
 }

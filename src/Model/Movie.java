@@ -31,6 +31,7 @@ public class Movie implements Serializable {
         this.MovieID = MovieManager.getInstance().getSize() + 1;
         this.Slots = new ArrayList<>();
         this.Cast = new ArrayList<>();
+        MovieManager.getInstance().Save();
     }
 
     public Movie(String title, int type,  int status, int movieRating, String desc, String direc, ArrayList<String> c) {
@@ -45,6 +46,7 @@ public class Movie implements Serializable {
         this.MovieID = MovieManager.getInstance().getSize() + 1;
         this.Slots = new ArrayList<>();
         this.Cast = new ArrayList<>();
+        MovieManager.getInstance().Save();
     }
 
     public int getMovieID() {
@@ -144,6 +146,7 @@ public class Movie implements Serializable {
     	case 4: this.MovieRating = MovieRating.R21; break;
     	default: break;
     	}
+
 	}
 	public void setMovieRating(MovieRating movieRating) {
 		MovieRating = movieRating;
@@ -208,6 +211,7 @@ public class Movie implements Serializable {
     public void editSlot(MovieSlot slotBefore, MovieSlot newSlot) {
         removeSlot(slotBefore);
         AddSlot(newSlot);
+        MovieManager.getInstance().Save();
     }
     public MovieSlot getSlot(int slotID) {
         for (MovieSlot i : Slots) {
@@ -217,5 +221,9 @@ public class Movie implements Serializable {
         }
         return null;
     }
-
+    public void setPrice(CinemaType type, double price) {
+        for (MovieSlot i : Slots) {
+                i.setPrice(type,price);
+        }
+    }
 }

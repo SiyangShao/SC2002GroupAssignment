@@ -6,12 +6,12 @@ public class Seat implements Serializable {
     protected int seatNo;
     protected int MovieID;
 
-    protected double basePrice;
+//    protected double basePrice;
 
-    public Seat(int seatNo, int MovieID, double basePrice) {
+    public Seat(int seatNo, int MovieID) {
         setSeatNo(seatNo);
         setMovieID(MovieID);
-        setBasePrice(basePrice);
+//        setBasePrice(basePrice);
     }
 
     public int getSeatNo() {
@@ -30,11 +30,11 @@ public class Seat implements Serializable {
         MovieID = movieID;
     }
 
-    public double getBasePrice() {
-        return basePrice;
-    }
+//    public double getBasePrice() {
+//        return basePrice;
+//    }
 
-    public void setBasePrice(double basePrice) {
-        this.basePrice = basePrice;
-    }
+//    public void setBasePrice(double basePrice) {
+//        this.basePrice = basePrice;
+//    }
 }

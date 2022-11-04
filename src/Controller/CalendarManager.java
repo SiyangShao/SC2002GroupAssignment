@@ -28,7 +28,13 @@ public class CalendarManager extends ManagerBase {
     public void AddHoliday(LocalDateTime datetime){
         Holidays.add(datetime);
     }
-
+	public boolean isHoliday(LocalDateTime datetime) {
+		if (Holidays.contains(datetime)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
     public void RemoveHoliday(LocalDateTime datetime){
         Holidays.remove(datetime);
     }
