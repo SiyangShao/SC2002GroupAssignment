@@ -124,10 +124,7 @@ public class MovieUI {
         System.out.println("Please enter configuration settings");
         System.out.println("1. Change Holiday Settings");
         System.out.println("2. Change Movie Ticket Price for different Cinema Class");
-        //TODO: Add more settings
-//        System.out.println("3. Change Movie Ticket Price for different Audience");
-//        System.out.println("4. Change Movie Ticket Price for different Days");
-        System.out.println("5. Exit");
+        System.out.println("3. Exit");
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
@@ -137,12 +134,6 @@ public class MovieUI {
                 HandleCinemaClassSettings();
                 break;
             case 3:
-//                HandleAudienceSettings();
-                break;
-            case 4:
-//                HandleDaySettings();
-                break;
-            case 5:
                 return;
             default:
                 System.out.println("You did not select anything");
