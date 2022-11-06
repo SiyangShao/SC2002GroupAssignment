@@ -7,8 +7,7 @@ import Model.TicketType;
 import Model.User;
 import Model.Movie;
 
-import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.*;
 
 public class UserSelectorUI {
 
@@ -258,9 +257,31 @@ public class UserSelectorUI {
                     u.viewBookingHistory(listOfMovies);
                     break;
                 case 5:
-                    
                     break;
                 case 6:
+                    HashMap<String, Double> reviewRatingTable = new HashMap<String, Double>();                    
+                    for(Movie movieInList : listOfMovies){
+                        System.out.println(movieInList.getDescription());
+                        reviewRatingTable.put(movieInList.getTitle(), movieInList.GetAveRating());
+                    }
+                    List<Map.Entry<String, Double> > list = new LinkedList<Map.Entry<String, Double> >(reviewRatingTable.entrySet());
+                    Collections.sort(list, new Comparator<Map.Entry<String, Double> >() {
+                        public int compare(Map.Entry<String, Double> o1,
+                                           Map.Entry<String, Double> o2)
+                        {
+                            return (o1.getValue()).compareTo(o2.getValue());
+                        }
+                    });
+                    HashMap<String, Double> sortedMap = new LinkedHashMap<String, Double>();
+                    for (Map.Entry<String, Double> aa : list) {
+                        sortedMap.put(aa.getKey(), aa.getValue());
+                    }
+                    int count = 0;
+                    Iterator<String> itr = sortedMap.keySet().iterator();
+                    while (itr.hasNext() && count < 5) {
+                        System.out.println(sortedMap.get(itr.next()));
+                        count++;
+                    }
                     break;
                 // Exiting
                 case 7:

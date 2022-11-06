@@ -29,7 +29,7 @@ public class Movie implements Serializable {
         this.NoOfReviewers += 1;
     }
 
-    private void AddReview(int reviewRating){
+    private void AddReview(double reviewRating){
         this.ReviewRating += reviewRating;
     }
 
@@ -38,7 +38,7 @@ public class Movie implements Serializable {
         //System.out.printf("%.2f", val);
     }
 
-    public void AddRating(int rating){
+    public void AddRating(double rating){
         this.AddReview(rating);
         this.NoOfReviwersIncre();
     }

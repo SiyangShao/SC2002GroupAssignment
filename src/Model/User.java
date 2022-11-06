@@ -75,7 +75,7 @@ public class User implements Serializable {
                 }
                 else if (reviewRating <= 5.0 || reviewRating >= 1.0){
                     review.setRating(reviewRating);
-                    movie.setReviewRating(review.getRating());
+                    movie.AddRating(review.getRating());
                     break;
                 }
                 else{
