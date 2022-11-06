@@ -20,7 +20,7 @@ public class Ticket extends Seat implements Serializable {
     }
 
     public Ticket(int seatNo, int MovieID, double basePrice, TicketType type, String transactionID) {
-        super(seatNo, MovieID, basePrice);
+        super(seatNo, MovieID);
         this.type = type;
         this.transactionID = transactionID;
         switch (type) {

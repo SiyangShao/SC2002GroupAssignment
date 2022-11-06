@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class User implements Serializable {
 
@@ -56,8 +57,35 @@ public class User implements Serializable {
         Phone = phone;
     }
 
-    private void viewBookingHistory(String TransactionID, MovieSlot movieSlot) {
+    private void viewBookingHistory(String TransactionID, MovieSlot movieSlot, Movie movie) {
         movieSlot.showTransactionHistory(TransactionID);
+        this.setMovieRating(movie);
+    }
+
+    private void setMovieRating(Movie movie){
+        Review review = new Review();
+        review.setMovieID(movie.getMovieID());
+        Scanner reviewScanner = new Scanner(System.in);
+        try{
+            while(true){
+                System.out.print("Leave a review: (1-5, 0 to do it next time.): ");
+                double reviewRating = reviewScanner.nextDouble();
+                if (reviewRating == 0) {
+                    break;
+                }
+                else if (reviewRating <= 5.0 || reviewRating >= 1.0){
+                    review.setRating(reviewRating);
+                    movie.setReviewRating(review.getRating());
+                    break;
+                }
+                else{
+                    continue;
+                }
+            }
+        }
+        catch (Exception err){
+            System.err.println(err);
+        }
     }
 
     public void viewBookingHistory(ArrayList<Movie> AllMovies) {
@@ -82,7 +110,7 @@ public class User implements Serializable {
                     ArrayList<MovieSlot> currentSlots = movie.getSlots(cinemaID);
                     for (MovieSlot movieSlot : currentSlots) {
                         if (Objects.equals(movieSlot.getDatetime(), movieSlotTime)) {
-                            viewBookingHistory(transactionID, movieSlot);
+                            viewBookingHistory(transactionID, movieSlot, movie);
                         }
                     }
                 }

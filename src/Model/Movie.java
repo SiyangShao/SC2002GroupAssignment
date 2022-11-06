@@ -16,6 +16,35 @@ public class Movie implements Serializable {
     private String Director;
     private ArrayList<String> Cast;
 
+    // =========Jeda===================
+    // 2022/11/06
+    private double TicketsSold;
+    private int NoOfReviewers = 0;
+
+    public int GetNoOfReviewers(){
+        return this.NoOfReviewers;
+    }
+
+    private void NoOfReviwersIncre(){
+        this.NoOfReviewers += 1;
+    }
+
+    private void AddReview(int reviewRating){
+        this.ReviewRating += reviewRating;
+    }
+
+    public double GetAveRating(){
+        return this.ReviewRating/this.NoOfReviewers;
+        //System.out.printf("%.2f", val);
+    }
+
+    public void AddRating(int rating){
+        this.AddReview(rating);
+        this.NoOfReviwersIncre();
+    }
+
+    // =========End Jeda===============
+    
     private ArrayList<MovieSlot> Slots;
 
     private int DurationMins;
