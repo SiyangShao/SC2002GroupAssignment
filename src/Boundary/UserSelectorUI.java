@@ -261,7 +261,7 @@ public class UserSelectorUI {
                 case 6:
                     HashMap<String, Double> reviewRatingTable = new HashMap<String, Double>();                    
                     for(Movie movieInList : listOfMovies){
-                        System.out.println(movieInList.getDescription());
+                        System.out.println(movieInList.getTitle());
                         reviewRatingTable.put(movieInList.getTitle(), movieInList.GetAveRating());
                     }
                     List<Map.Entry<String, Double> > list = new LinkedList<Map.Entry<String, Double> >(reviewRatingTable.entrySet());
