@@ -276,12 +276,12 @@ public class UserSelectorUI {
                     for (Map.Entry<String, Integer> aa : nlist) {
                         sortMap.put(aa.getKey(), aa.getValue());
                     }
-                    int counter = 0;
+                    int counter = 1;
                     Iterator<String> ite = sortMap.keySet().iterator();
-                    while (ite.hasNext() && counter < 5) {
+                    while (ite.hasNext() && counter < 6) {
                         String key = ite.next();
                         System.out.println(counter +". "+ key +": " + sortMap.get(key));
-                        counter--;
+                        counter++;
                     }
                     
                     break;
@@ -303,10 +303,11 @@ public class UserSelectorUI {
                     for (Map.Entry<String, Double> aa : list) {
                         sortedMap.put(aa.getKey(), aa.getValue());
                     }
-                    int count = 0;
+                    int count = 1;
                     Iterator<String> itr = sortedMap.keySet().iterator();
-                    while (itr.hasNext() && count < 5) {
-                        System.out.println(sortedMap.get(itr.next()));
+                    while (itr.hasNext() && count < 6) {
+                        String key = itr.next();
+                        System.out.println(count +". "+ key +": " + sortedMap.get(key));
                         count++;
                     }
                     break;
