@@ -18,8 +18,16 @@ public class Movie implements Serializable {
 
     // =========Jeda===================
     // 2022/11/06
-    private double TicketsSold;
+    private int TicketsSold = 0;
     private int NoOfReviewers = 0;
+
+    public void Tix(){
+        this.TicketsSold += 1;
+    }
+
+    public int getTix(){
+        return this.TicketsSold;
+    }
 
     public int GetNoOfReviewers(){
         return this.NoOfReviewers;

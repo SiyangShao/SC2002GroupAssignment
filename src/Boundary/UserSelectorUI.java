@@ -250,6 +250,7 @@ public class UserSelectorUI {
                         System.out.println("Please enter the seat number you want to book: ");
                         int seatNumber = sc.nextInt() - 1;
                         seatNumbers.add(seatNumber);
+                        movie.Tix();
                     }
                     u.bookSeats(seatNumbers, ticketTypes, movieSlot);
                     break;
@@ -257,11 +258,37 @@ public class UserSelectorUI {
                     u.viewBookingHistory(listOfMovies);
                     break;
                 case 5:
+                    System.out.println("Top 5 Movies based on Ticket Sales(lowest to highest)");
+                    HashMap<String, Integer> TixTable = new HashMap<String, Integer>();                    
+                    for(Movie movieInList : listOfMovies){
+                        //System.out.println();
+                        TixTable.put(movieInList.getTitle(), movieInList.getTix());
+                    }
+                    List<Map.Entry<String, Integer> > nlist = new LinkedList<Map.Entry<String, Integer> >(TixTable.entrySet());
+                    Collections.sort(nlist, new Comparator<Map.Entry<String, Integer> >() {
+                        public int compare(Map.Entry<String, Integer> o1,
+                                           Map.Entry<String, Integer> o2)
+                        {
+                            return (o1.getValue()).compareTo(o2.getValue());
+                        }
+                    });
+                    HashMap<String, Integer> sortMap = new LinkedHashMap<String, Integer>();
+                    for (Map.Entry<String, Integer> aa : nlist) {
+                        sortMap.put(aa.getKey(), aa.getValue());
+                    }
+                    int counter = 0;
+                    Iterator<String> ite = sortMap.keySet().iterator();
+                    while (ite.hasNext() && counter < 5) {
+                        String key = ite.next();
+                        System.out.println(counter +". "+ key +": " + sortMap.get(key));
+                        counter--;
+                    }
+                    
                     break;
                 case 6:
+                    System.out.println("Top 5 Movies based on Review Ratings(lowest to highest)");
                     HashMap<String, Double> reviewRatingTable = new HashMap<String, Double>();                    
                     for(Movie movieInList : listOfMovies){
-                        System.out.println(movieInList.getTitle());
                         reviewRatingTable.put(movieInList.getTitle(), movieInList.GetAveRating());
                     }
                     List<Map.Entry<String, Double> > list = new LinkedList<Map.Entry<String, Double> >(reviewRatingTable.entrySet());
