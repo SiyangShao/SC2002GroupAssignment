@@ -107,233 +107,25 @@ public class UserSelectorUI {
             // Getting user's choice, then deciding which options to show
             switch (choice) {
                 case 1:
-                    // If current listOfMovies have no movies inside
-                    if (listOfMovies.size() == 0) {
-                        System.out.println("Sorry there are currently no movies!");
-                        break;
-                    }
-
-                    // Getting the keyword from the user to be searched
-                    System.out.printf("Please enter the keyword to be searched: ");
-                    sc.nextLine();        // To remove the carriage return character
-                    String keyWord = sc.nextLine();
-
-                    System.out.println("Displaying the list of movies with keyword \"" + keyWord + "\"...");
-                    System.out.println("=====================================");
-                    System.out.println("MOVIE ID\t\tMOVIE TITLE");
-                    System.out.println("=====================================");
-
-                    // Searching through the listOfMovies for titles have contain the keyword, then displaying it
-                    boolean foundMovieID1 = false;
-                    for (int i = 0; i < listOfMovies.size(); i++) {
-                        if (listOfMovies.get(i).getTitle().toLowerCase().contains(keyWord.toLowerCase())) {
-                            System.out.println(i + 1 + ".\t\t\t" + listOfMovies.get(i).getTitle());
-                            foundMovieID1 = true;
-                        }
-                    }
-
-                    // If cannot find any movies that contain the keyword
-                    if (!foundMovieID1) {
-                        System.out.println("Sorry there are currently no movies that match " + keyWord + "!");
-                        break;
-                    }
-                    // User can select the movie by the MovieID to view the details of the movie
-                    System.out.printf("Please select the Movie ID to view the details of the movie: ");
-                    int movieChoice1 = sc.nextInt();
-
-                    // Searching through the listOfMovies for that MovieID, then printing out the details
-                    foundMovieID1 = false;
-                    for (int i = 0; i < listOfMovies.size(); i++) {
-                        if (listOfMovies.get(i).getMovieID() == movieChoice1) {
-                            foundMovieID1 = true;
-                            listOfMovies.get(i).printDetails();
-                        }
-                    }
-
-                    if (!foundMovieID1) {
-                        System.out.println("Please enter a valid Movie ID");
-                    }
-
-                    // Possible branch to show the show timings and then buying the tickets???
+                    searchMoviesUI(listOfMovies);
                     break;
                 case 2:
-                    // If current listOfMovies have no movies inside
-                    if (listOfMovies.size() == 0) {
-                        System.out.println("Sorry there are currently no movies!");
-                        break;
-                    }
-
-                    System.out.println("Displaying the list of movies...");
-                    System.out.println("=====================================");
-                    System.out.println("MOVIE ID\t\tMOVIE TITLE");
-                    System.out.println("=====================================");
-
-
-                    // Looping through the ArrayList to get all the movie titles
-                    for (int i = 0; i < listOfMovies.size(); i++) {
-                        System.out.println(i + 1 + ".\t\t\t" + listOfMovies.get(i).getTitle());
-                    }
-                    // User can select the movie by the MovieID to view the details of the movie
-                    System.out.print("Please select the Movie ID to view the details of the movie: ");
-                    int movieChoice2 = sc.nextInt();
-
-                    // Searching through the listOfMovies for that MovieID, then printing out the details
-                    boolean foundMovieID2 = false;
-                    for (int i = 0; i < listOfMovies.size(); i++) {
-                        if (listOfMovies.get(i).getMovieID() == movieChoice2) {
-                            foundMovieID2 = true;
-                            listOfMovies.get(i).printDetails();
-                        }
-                    }
-
-                    if (!foundMovieID2) {
-                        System.out.println("Please enter a valid Movie ID");
-                    }
-
-                    // Possible branch to show the show timings and then buying the tickets???
+                	listMoviesUI(listOfMovies);
                     break;
                 case 3:
-                    System.out.println("Here are the list of movies:");
-                    System.out.println("=====================================");
-                    System.out.println("MOVIE ID\t\tMOVIE TITLE");
-                    System.out.println("=====================================");
-                    for (Movie listOfMovie : listOfMovies) {
-                    	if (listOfMovie.getStatus() == MovieStatus.END_OF_SHOWING) {
-                    		
-                    	}
-                    	else if (listOfMovie.getStatus() == MovieStatus.COMING_SOON) {
-                    		System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle() + "(COMING SOON)");
-                    	}
-                    	else {
-                    		System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle());
-                    	}
-                    }
-                    System.out.println("Please select the Movie ID to view the details of the movie: ");
-                    int movieID = sc.nextInt();
-                    Movie movie = MovieManager.getInstance().getOneMovie(movieID);
-                    if (movie.getStatus() == MovieStatus.COMING_SOON) {
-                    	System.out.println("Movie is not out yet.");
-                    	break;
-                    	
-                    }
-                    if (movie == null) {
-                        System.out.println("Movie ID not found.");
-                        break;
-                    }
-                    System.out.println("Here are the list of movie slots:");
-                    System.out.println("=====================================");
-                    System.out.println("MOVIE SLOT ID\t\tMOVIE SLOT\t\tShow Time\t\tCinemaID\t\tSeats Rest");
-                    System.out.println("=====================================");
-                    for (Model.MovieSlot movieSlot : movie.getSlots()) {
-                        System.out.println(movieSlot.getMovieSlotID() + ".\t\t\t" + movieSlot.getMovieName() + "\t\t" + movieSlot.getShowTime() + "\t\t" + movieSlot.getCinemaID() + "\t\t" + movieSlot.remainSeatNumber());
-                    }
-                    System.out.println("Please enter the movie slot ID you want to book: ");
-                    int movieSlotID = sc.nextInt();
-                    Model.MovieSlot movieSlot = movie.getSlot(movieSlotID);
-                    if (movieSlot == null) {
-                        System.out.println("Movie Slot ID not found");
-                        break;
-                    }
-                    System.out.println("Please enter the number of tickets you want to book: ");
-                    int numOfTickets = sc.nextInt();
-                    ArrayList<Model.TicketType> ticketTypes = new ArrayList<>();
-                    ArrayList<Integer> seatNumbers = new ArrayList<>();
-                    for (int i = 0; i < numOfTickets; i++) {
-                        System.out.println("Please enter the ticket type you want to book: ");
-                        System.out.println("1. Adult");
-                        System.out.println("2. Child");
-                        System.out.println("3. Senior");
-                        System.out.println("4. Student");
-                        int ticketType = sc.nextInt();
-                        switch (ticketType) {
-                            case 1:
-                                ticketTypes.add(Model.TicketType.ADULT);
-                                break;
-                            case 2:
-                                ticketTypes.add(Model.TicketType.CHILD);
-                                break;
-                            case 3:
-                                ticketTypes.add(Model.TicketType.SENIOR_CITIZEN);
-                                break;
-                            case 4:
-                                ticketTypes.add(Model.TicketType.STUDENT);
-                                break;
-                        }
-
-                        movieSlot.showSeats();
-
-                        System.out.println("Please enter the seat number you want to book: ");
-                        int seatNumber = sc.nextInt() - 1;
-                        seatNumbers.add(seatNumber);
-                        movie.Tix();
-                    }
-                    u.bookSeats(seatNumbers, ticketTypes, movieSlot);
+                	purchaseTicketUI(listOfMovies, u);
                     break;
                 case 4:
                     u.viewBookingHistory();
                     break;
                 case 5:
-                	System.out.println("List of Movies");
-                	movieUI.listMovies();
-                	System.out.println("Which movie would you like to review?");
-                	movieID = sc.nextInt();
-                	movie = MovieManager.getInstance().getOneMovie(movieID);
-                	u.setMovieRating(movie);
-                	
+                	addReviewUI(movieUI, u);
                 	break;
                 case 6:
-                    System.out.println("Top 5 Movies based on Ticket Sales(lowest to highest)");
-                    HashMap<String, Integer> TixTable = new HashMap<String, Integer>();                    
-                    for(Movie movieInList : listOfMovies){
-                        //System.out.println();
-                        TixTable.put(movieInList.getTitle(), movieInList.getTix());
-                    }
-                    List<Map.Entry<String, Integer> > nlist = new LinkedList<Map.Entry<String, Integer> >(TixTable.entrySet());
-                    Collections.sort(nlist, new Comparator<Map.Entry<String, Integer> >() {
-                        public int compare(Map.Entry<String, Integer> o1,
-                                           Map.Entry<String, Integer> o2)
-                        {
-                            return (o1.getValue()).compareTo(o2.getValue());
-                        }
-                    });
-                    HashMap<String, Integer> sortMap = new LinkedHashMap<String, Integer>();
-                    for (Map.Entry<String, Integer> aa : nlist) {
-                        sortMap.put(aa.getKey(), aa.getValue());
-                    }
-                    int counter = 1;
-                    Iterator<String> ite = sortMap.keySet().iterator();
-                    while (ite.hasNext() && counter < 6) {
-                        String key = ite.next();
-                        System.out.println(counter +". "+ key +": " + sortMap.get(key));
-                        counter++;
-                    }
-                    
+                	top5Movies_SalesUI(listOfMovies);
                     break;
                 case 7:
-                    System.out.println("Top 5 Movies based on Review Ratings(lowest to highest)");
-                    HashMap<String, Double> reviewRatingTable = new HashMap<String, Double>();                    
-                    for(Movie movieInList : listOfMovies){
-                        reviewRatingTable.put(movieInList.getTitle(), movieInList.getAvgRating());
-                    }
-                    List<Map.Entry<String, Double> > list = new LinkedList<Map.Entry<String, Double> >(reviewRatingTable.entrySet());
-                    Collections.sort(list, new Comparator<Map.Entry<String, Double> >() {
-                        public int compare(Map.Entry<String, Double> o1,
-                                           Map.Entry<String, Double> o2)
-                        {
-                            return (o1.getValue()).compareTo(o2.getValue());
-                        }
-                    });
-                    HashMap<String, Double> sortedMap = new LinkedHashMap<String, Double>();
-                    for (Map.Entry<String, Double> aa : list) {
-                        sortedMap.put(aa.getKey(), aa.getValue());
-                    }
-                    int count = 1;
-                    Iterator<String> itr = sortedMap.keySet().iterator();
-                    while (itr.hasNext() && count < 6) {
-                        String key = itr.next();
-                        System.out.println(count +". "+ key +": " + sortedMap.get(key));
-                        count++;
-                    }
+                	top5Movies_ReviewUI(listOfMovies);
                     break;
                 // Exiting
                 case 8:
@@ -345,5 +137,227 @@ public class UserSelectorUI {
             }
         }
         while (true);
+    }
+    
+    private void searchMoviesUI(ArrayList<Movie> listOfMovies) {
+    	// If current listOfMovies have no movies inside
+        if (listOfMovies.size() == 0) {
+            System.out.println("Sorry there are currently no movies!");
+            return;
+        }
+
+        // Getting the keyword from the user to be searched
+        System.out.printf("Please enter the keyword to be searched: ");
+        sc.nextLine();        // To remove the carriage return character
+        String keyWord = sc.nextLine();
+
+        System.out.println("Displaying the list of movies with keyword \"" + keyWord + "\"...");
+        System.out.println("=====================================");
+        System.out.println("MOVIE ID\t\tMOVIE TITLE");
+        System.out.println("=====================================");
+
+        // Searching through the listOfMovies for titles have contain the keyword, then displaying it
+        boolean foundMovieID1 = false;
+        for (int i = 0; i < listOfMovies.size(); i++) {
+            if (listOfMovies.get(i).getTitle().toLowerCase().contains(keyWord.toLowerCase())) {
+                System.out.println(i + 1 + ".\t\t\t" + listOfMovies.get(i).getTitle());
+                foundMovieID1 = true;
+            }
+        }
+
+        // If cannot find any movies that contain the keyword
+        if (!foundMovieID1) {
+            System.out.println("Sorry there are currently no movies that match " + keyWord + "!");
+            return;
+        }
+        // User can select the movie by the MovieID to view the details of the movie
+        System.out.printf("Please select the Movie ID to view the details of the movie: ");
+        int movieChoice1 = sc.nextInt();
+
+        // Searching through the listOfMovies for that MovieID, then printing out the details
+        foundMovieID1 = false;
+        for (int i = 0; i < listOfMovies.size(); i++) {
+            if (listOfMovies.get(i).getMovieID() == movieChoice1) {
+                foundMovieID1 = true;
+                listOfMovies.get(i).printDetails();
+            }
+        }
+
+        if (!foundMovieID1) {
+            System.out.println("Please enter a valid Movie ID");
+        }
+    }
+
+    private void listMoviesUI(ArrayList<Movie> listOfMovies) {
+        if (listOfMovies.size() == 0) {
+            System.out.println("Sorry there are currently no movies!");
+            return;
+        }
+
+        System.out.println("Displaying the list of movies...");
+        System.out.println("=====================================");
+        System.out.println("MOVIE ID\t\tMOVIE TITLE");
+        System.out.println("=====================================");
+
+
+        // Looping through the ArrayList to get all the movie titles
+        for (int i = 0; i < listOfMovies.size(); i++) {
+            System.out.println(i + 1 + ".\t\t\t" + listOfMovies.get(i).getTitle());
+        }
+        // User can select the movie by the MovieID to view the details of the movie
+        System.out.print("Please select the Movie ID to view the details of the movie: ");
+        int movieChoice2 = sc.nextInt();
+
+        // Searching through the listOfMovies for that MovieID, then printing out the details
+        boolean foundMovieID2 = false;
+        for (int i = 0; i < listOfMovies.size(); i++) {
+            if (listOfMovies.get(i).getMovieID() == movieChoice2) {
+                foundMovieID2 = true;
+                listOfMovies.get(i).printDetails();
+            }
+        }
+
+        if (!foundMovieID2) {
+            System.out.println("Please enter a valid Movie ID");
+        }
+    }
+    private void purchaseTicketUI(ArrayList<Movie> listOfMovies, User u) {
+    	System.out.println("Here are the list of movies:");
+        System.out.println("=====================================");
+        System.out.println("MOVIE ID\t\tMOVIE TITLE");
+        System.out.println("=====================================");
+        for (Movie listOfMovie : listOfMovies) {
+        	if (listOfMovie.getStatus() == MovieStatus.END_OF_SHOWING) {
+        		
+        	}
+        	else if (listOfMovie.getStatus() == MovieStatus.COMING_SOON) {
+        		System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle() + "(COMING SOON)");
+        	}
+        	else {
+        		System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle());
+        	}
+        }
+        System.out.println("Please select the Movie ID to view the details of the movie: ");
+        int movieID = sc.nextInt();
+        Movie movie = MovieManager.getInstance().getOneMovie(movieID);
+        if (movie.getStatus() == MovieStatus.COMING_SOON) {
+        	System.out.println("Movie is not out yet.");
+        	return;
+        	
+        }
+        if (movie == null) {
+            System.out.println("Movie ID not found.");
+            return;
+        }
+        System.out.println("Here are the list of movie slots:");
+        System.out.println("=====================================");
+        System.out.println("MOVIE SLOT ID\t\tMOVIE SLOT\t\tShow Time\t\tCinemaID\t\tSeats Rest");
+        System.out.println("=====================================");
+        for (Model.MovieSlot movieSlot : movie.getSlots()) {
+            System.out.println(movieSlot.getMovieSlotID() + ".\t\t\t" + movieSlot.getMovieName() + "\t\t" + movieSlot.getShowTime() + "\t\t" + movieSlot.getCinemaID() + "\t\t" + movieSlot.remainSeatNumber());
+        }
+        System.out.println("Please enter the movie slot ID you want to book: ");
+        int movieSlotID = sc.nextInt();
+        Model.MovieSlot movieSlot = movie.getSlot(movieSlotID);
+        if (movieSlot == null) {
+            System.out.println("Movie Slot ID not found");
+            return;
+        }
+        System.out.println("Please enter the number of tickets you want to book: ");
+        int numOfTickets = sc.nextInt();
+        ArrayList<Model.TicketType> ticketTypes = new ArrayList<>();
+        ArrayList<Integer> seatNumbers = new ArrayList<>();
+        for (int i = 0; i < numOfTickets; i++) {
+            System.out.println("Please enter the ticket type you want to book: ");
+            System.out.println("1. Adult");
+            System.out.println("2. Child");
+            System.out.println("3. Senior");
+            System.out.println("4. Student");
+            int ticketType = sc.nextInt();
+            switch (ticketType) {
+                case 1:
+                    ticketTypes.add(Model.TicketType.ADULT);
+                    break;
+                case 2:
+                    ticketTypes.add(Model.TicketType.CHILD);
+                    break;
+                case 3:
+                    ticketTypes.add(Model.TicketType.SENIOR_CITIZEN);
+                    break;
+                case 4:
+                    ticketTypes.add(Model.TicketType.STUDENT);
+                    break;
+            }
+
+            movieSlot.showSeats();
+
+            System.out.println("Please enter the seat number you want to book: ");
+            int seatNumber = sc.nextInt() - 1;
+            seatNumbers.add(seatNumber);
+            movie.Tix();
+        }
+        u.bookSeats(seatNumbers, ticketTypes, movieSlot);
+    }
+    private void addReviewUI(MovieUI movieUI, User u) {
+    	System.out.println("List of Movies");
+    	movieUI.listMovies();
+    	System.out.println("Which movie would you like to review?");
+    	int movieID = sc.nextInt();
+    	Movie movie = MovieManager.getInstance().getOneMovie(movieID);
+    	u.setMovieRating(movie);
+    }
+    
+    private void top5Movies_SalesUI(ArrayList<Movie> listOfMovies) {
+        System.out.println("Top 5 Movies based on Ticket Sales(lowest to highest)");
+        HashMap<String, Integer> TixTable = new HashMap<String, Integer>();                    
+        for(Movie movieInList : listOfMovies){
+            //System.out.println();
+            TixTable.put(movieInList.getTitle(), movieInList.getTix());
+        }
+        List<Map.Entry<String, Integer> > nlist = new LinkedList<Map.Entry<String, Integer> >(TixTable.entrySet());
+        Collections.sort(nlist, new Comparator<Map.Entry<String, Integer> >() {
+            public int compare(Map.Entry<String, Integer> o1,
+                               Map.Entry<String, Integer> o2)
+            {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+        HashMap<String, Integer> sortMap = new LinkedHashMap<String, Integer>();
+        for (Map.Entry<String, Integer> aa : nlist) {
+            sortMap.put(aa.getKey(), aa.getValue());
+        }
+        int counter = 1;
+        Iterator<String> ite = sortMap.keySet().iterator();
+        while (ite.hasNext() && counter < 6) {
+            String key = ite.next();
+            System.out.println(counter +". "+ key +": " + sortMap.get(key));
+            counter++;
+        }
+    }
+    private void top5Movies_ReviewUI(ArrayList<Movie> listOfMovies) {
+        System.out.println("Top 5 Movies based on Review Ratings(lowest to highest)");
+        HashMap<String, Double> reviewRatingTable = new HashMap<String, Double>();                    
+        for(Movie movieInList : listOfMovies){
+            reviewRatingTable.put(movieInList.getTitle(), movieInList.getAvgRating());
+        }
+        List<Map.Entry<String, Double> > list = new LinkedList<Map.Entry<String, Double> >(reviewRatingTable.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Double> >() {
+            public int compare(Map.Entry<String, Double> o1,
+                               Map.Entry<String, Double> o2)
+            {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+        HashMap<String, Double> sortedMap = new LinkedHashMap<String, Double>();
+        for (Map.Entry<String, Double> aa : list) {
+            sortedMap.put(aa.getKey(), aa.getValue());
+        }
+        int count = 1;
+        Iterator<String> itr = sortedMap.keySet().iterator();
+        while (itr.hasNext() && count < 6) {
+            String key = itr.next();
+            System.out.println(count +". "+ key +": " + sortedMap.get(key));
+            count++;
+        }
     }
 }
