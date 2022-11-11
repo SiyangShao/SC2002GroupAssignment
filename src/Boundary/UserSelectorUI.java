@@ -10,14 +10,25 @@ import Model.MovieStatus;
 
 import java.util.*;
 
+/**
+Represents the Main UI  in Movie Booking application
+@version 1.0
+@since   20 October 2022
+*/
 public class UserSelectorUI {
 
     private final Scanner sc;
-
+    /**
+     * Creates a new UserSelectorUI
+     * @param sc The Input Scanner
+     */
     public UserSelectorUI(Scanner sc) {
         this.sc = sc;
     }
 
+    /**
+     * Handles Choose Login as Staff or User
+     */
     public void DisplayUserTypeSelection() {
         System.out.println("\n========== Main Menu ==========\n");
         System.out.println("Please select user type:");
@@ -26,7 +37,10 @@ public class UserSelectorUI {
         System.out.println("3. Exit");
         System.out.println("\n===============================\n");
     }
-
+    
+    /**
+     * Handles the Login for Staff 
+     */
     public boolean HandleCinemaStaffLogin() {
         String userName, passWord;
 
@@ -41,6 +55,9 @@ public class UserSelectorUI {
         return UserManager.getInstance().Login(userName, passWord);
     }
 
+    /**
+     * Handles the Staff Actions Main UI (e.g Add Cinema, Add Showtime, Configure System Settings, etc)
+     */
     public void DisplayStaffActions(MovieUI movieUI, CineplexUI cineplexUI) {
         int choice = 0;
         do {
@@ -72,6 +89,10 @@ public class UserSelectorUI {
         } while (choice != 4);
     }
 
+    /**
+     * Gets One User
+     * @return user User
+     */
     private User GetMovieGoerInfo() {
         System.out.println("\n========== Movie Goer ==========\n");
         System.out.println("Please enter Email:");
@@ -87,6 +108,9 @@ public class UserSelectorUI {
     }
 
 
+    /**
+     * Handles the User Actions Main UI (e.g Search Movie, View Movie Detail, Purchase Movie Ticket, etc)
+     */
     public void DisplayMovieGoerActions(MovieUI movieUI) {
         ArrayList<Movie> listOfMovies = MovieManager.getInstance().getMovies();
         User u = this.GetMovieGoerInfo();
@@ -139,6 +163,9 @@ public class UserSelectorUI {
         while (true);
     }
     
+    /**
+     * Handles the Search Movie UI for User
+     */
     private void searchMoviesUI(ArrayList<Movie> listOfMovies) {
     	// If current listOfMovies have no movies inside
         if (listOfMovies.size() == 0) {
@@ -188,6 +215,9 @@ public class UserSelectorUI {
         }
     }
 
+    /**
+     * Handles the List Movie and View Movie Detail UI for User
+     */
     private void listMoviesUI(ArrayList<Movie> listOfMovies) {
         if (listOfMovies.size() == 0) {
             System.out.println("Sorry there are currently no movies!");
@@ -221,6 +251,10 @@ public class UserSelectorUI {
             System.out.println("Please enter a valid Movie ID");
         }
     }
+    
+    /**
+     * Handles the Purchase Movie Ticket UI for User
+     */
     private void purchaseTicketUI(ArrayList<Movie> listOfMovies, User u) {
     	System.out.println("Here are the list of movies:");
         System.out.println("=====================================");
@@ -298,6 +332,10 @@ public class UserSelectorUI {
         }
         u.bookSeats(seatNumbers, ticketTypes, movieSlot);
     }
+    
+    /**
+     * Handles the Add Review UI for User
+     */
     private void addReviewUI(MovieUI movieUI, User u) {
     	System.out.println("List of Movies");
     	movieUI.listMovies();
@@ -307,6 +345,9 @@ public class UserSelectorUI {
     	u.setMovieRating(movie);
     }
     
+    /**
+     * Handles the View Top 5 Movie by Sales UI for User
+     */
     private void top5Movies_SalesUI(ArrayList<Movie> listOfMovies) {
         System.out.println("Top 5 Movies based on Ticket Sales(lowest to highest)");
         HashMap<String, Integer> TixTable = new HashMap<String, Integer>();                    
@@ -334,6 +375,10 @@ public class UserSelectorUI {
             counter++;
         }
     }
+    
+    /**
+     * Handles the View Top 5 Movie by Review UI for User
+     */
     private void top5Movies_ReviewUI(ArrayList<Movie> listOfMovies) {
         System.out.println("Top 5 Movies based on Review Ratings(lowest to highest)");
         HashMap<String, Double> reviewRatingTable = new HashMap<String, Double>();                    
