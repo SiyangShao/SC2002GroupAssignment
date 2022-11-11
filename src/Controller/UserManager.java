@@ -12,6 +12,7 @@ import java.util.ArrayList;
 /**
  Controller class for users and staff
  Manages list of staffs and users
+ @author  Soh Wee Kiat
  @version 1.0
  @since   20 October 2022
  */
