@@ -2,6 +2,11 @@ package Model;
 
 import java.io.Serializable;
 
+/**
+ Represents a Seat
+ @version 1.0
+ @since   20 October 2022
+ */
 public class Seat implements Serializable {
     /**
      * The Seat ID of the seat

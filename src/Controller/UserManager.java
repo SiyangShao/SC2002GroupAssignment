@@ -10,8 +10,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
- Represents a student enrolled in the school.
- A student can be enrolled in many courses.
+ Controller class for users and staff
+ Manages list of staffs and users
  @version 1.0
  @since   20 October 2022
  */
