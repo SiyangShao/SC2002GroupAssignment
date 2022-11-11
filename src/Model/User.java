@@ -68,6 +68,21 @@ public class User implements Serializable {
         Scanner reviewScanner = new Scanner(System.in);
         try{
             while(true){
+                System.out.print("Any comments? (Type '0' to leave blank): ");
+                String reviewComment = reviewScanner.nextLine();
+                String end = new String("0");
+                String empty = new String("NA");
+                if (reviewComment.equals(end))
+                {
+                    review.setComment(empty);
+                    movie.setRev(empty);
+                }
+                else
+                {
+                    review.setComment(reviewComment);
+                    movie.setRev(review.getComment());    
+                }
+                
                 System.out.print("Leave a review: (1-5, 0 to do it next time.): ");
                 double reviewRating = reviewScanner.nextDouble();
                 if (reviewRating == 0) {

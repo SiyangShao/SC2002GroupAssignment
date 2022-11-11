@@ -17,10 +17,18 @@ public class Movie implements Serializable {
     private ArrayList<String> Cast;
 
     // =========Jeda===================
-    // 2022/11/06
     private int TicketsSold = 0;
     private int NoOfReviewers = 0;
+    private String ReviewComment;
+//=========
+    public void setRev(String reviewComment){
+        ReviewComment = reviewComment;
+    }
 
+    public String getRevCom(){
+        return ReviewComment;
+    }
+//==========  
     public void Tix(){
         this.TicketsSold += 1;
     }
@@ -43,7 +51,6 @@ public class Movie implements Serializable {
 
     public double GetAveRating(){
         return this.ReviewRating/this.NoOfReviewers;
-        //System.out.printf("%.2f", val);
     }
 
     public void AddRating(double rating){
@@ -206,8 +213,15 @@ public class Movie implements Serializable {
         System.out.println("Synopsis       : " + Description);
         System.out.println("Type           : " + Type);
         System.out.println("Movie Rating   : " + MovieRating);
-        System.out.println("Review Rating  : " + ReviewRating);
+        System.out.println("Review Rating  : " + ReviewRating/NoOfReviewers);
+        if (ReviewComment == null)
+        {
+            System.out.println("Review Comments: NA");
+        }
+        else
+            System.out.println("Review Comments: " + ReviewComment);
         System.out.println("Runtime (Mins) : " + DurationMins);
+        
 
     }
 
