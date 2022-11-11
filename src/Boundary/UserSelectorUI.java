@@ -270,7 +270,7 @@ public class UserSelectorUI {
                     u.bookSeats(seatNumbers, ticketTypes, movieSlot);
                     break;
                 case 4:
-                    u.viewBookingHistory(listOfMovies);
+                    u.viewBookingHistory();
                     break;
                 case 5:
                 	System.out.println("List of Movies");

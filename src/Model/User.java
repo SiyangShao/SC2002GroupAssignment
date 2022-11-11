@@ -120,11 +120,20 @@ public class User implements Serializable {
         Phone = phone;
     }
 
+    /**
+     * View booking history of the user of a transaction ID
+     * @param TransactionID This User's transactionID.
+     * @param movieSlot The movieSlot object
+     * @param movie The movie object
+     */
     private void viewBookingHistory(String TransactionID, MovieSlot movieSlot, Movie movie) {
         movieSlot.showTransactionHistory(TransactionID);
-//        this.setMovieRating(movie);
     }
 
+    /**
+     * Set movie ranking for a movie
+     * @param movie movie object for setting rating
+     */
     public void setMovieRating(Movie movie){
     	String comment;
     	double rating = 0;
@@ -166,7 +175,11 @@ public class User implements Serializable {
         }
     }
 
-    public void viewBookingHistory(ArrayList<Movie> AllMovies) {
+    /**
+     * View booking history
+     * for all movies
+     */
+    public void viewBookingHistory() {
         System.out.println("Booking History: (shown in transaction ID)");
         if(TransactionID.isEmpty()){
             System.out.println("No booking history");
@@ -183,7 +196,7 @@ public class User implements Serializable {
             int cinemaID = Integer.parseInt(transactionIDSplit[0]);
             int movieID = Integer.parseInt(transactionIDSplit[1]);
             LocalDateTime movieSlotTime = LocalDateTime.parse(transactionIDSplit[2]);
-            for (Movie movie : AllMovies) {
+            for (Movie movie : MovieManager.getInstance().getMovies()) {
                 if (movie.getMovieID() == movieID) {
                     ArrayList<MovieSlot> currentSlots = movie.getSlots(cinemaID);
                     for (MovieSlot movieSlot : currentSlots) {
@@ -199,6 +212,13 @@ public class User implements Serializable {
         }
     }
 
+    /**
+     * book the respective seat
+     * @param seatsNo List of seat numbers
+     * @param types list of seat types
+     * @param movieSlot movieSlot object that user is going to book in
+     * @return true if successfully booked the seat, else false
+     */
     public boolean bookSeats(ArrayList<Integer> seatsNo, ArrayList<TicketType> types, MovieSlot movieSlot) {
         String TransactionID = movieSlot.bookSeats(seatsNo, types);
         if (TransactionID == null) return false;
@@ -207,6 +227,12 @@ public class User implements Serializable {
         return true;
     }
 
+    /**
+     * Cancel a booking
+     * @param TransactionID transaction id to be cancelled
+     * @param movieSlot movieslot object that is going to be cancelled
+     * @return true if successfully cancelled the seat, else false
+     */
     public boolean cancelBooking(String TransactionID, MovieSlot movieSlot) {
         if (!this.TransactionID.contains(TransactionID)) {
             System.out.println("You do not have this transaction.");
