@@ -6,6 +6,7 @@ import Model.Ticket;
 import Model.TicketType;
 import Model.User;
 import Model.Movie;
+import Model.MovieStatus;
 
 import java.util.*;
 
@@ -197,13 +198,26 @@ public class UserSelectorUI {
                     System.out.println("MOVIE ID\t\tMOVIE TITLE");
                     System.out.println("=====================================");
                     for (Movie listOfMovie : listOfMovies) {
-                        System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle());
+                    	if (listOfMovie.getStatus() == MovieStatus.END_OF_SHOWING) {
+                    		
+                    	}
+                    	else if (listOfMovie.getStatus() == MovieStatus.COMING_SOON) {
+                    		System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle() + "(COMING SOON)");
+                    	}
+                    	else {
+                    		System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle());
+                    	}
                     }
                     System.out.println("Please select the Movie ID to view the details of the movie: ");
                     int movieID = sc.nextInt();
                     Movie movie = MovieManager.getInstance().getOneMovie(movieID);
+                    if (movie.getStatus() == MovieStatus.COMING_SOON) {
+                    	System.out.println("Movie is not out yet.");
+                    	break;
+                    	
+                    }
                     if (movie == null) {
-                        System.out.println("Movie ID not found");
+                        System.out.println("Movie ID not found.");
                         break;
                     }
                     System.out.println("Here are the list of movie slots:");
