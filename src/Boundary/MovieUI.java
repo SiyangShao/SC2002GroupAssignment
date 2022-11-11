@@ -33,6 +33,8 @@ public class MovieUI {
         System.out.println("1. Add New Movie");
         System.out.println("2. Edit Movie");
         System.out.println("3. Delete Movie");
+        System.out.println("4. View Movie");
+        System.out.println("5. Exit");
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
@@ -45,7 +47,9 @@ public class MovieUI {
                 removeMovie();
                 break;
             case 4:
+            	System.out.println("List of Movies");
                 listMovies();
+                HandleMovieUI();
                 break;
             default:
                 break;

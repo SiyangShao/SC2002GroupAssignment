@@ -8,6 +8,7 @@ import Model.Movie;
 import Model.MovieSlot;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -104,6 +105,10 @@ public class CinemaUI {
 		int movieID = sc.nextInt();
 		System.out.println("Enter Movie Showtime (24 hour format)");
 		LocalDateTime dt = getInput_DateTime();
+		if (!checkDateTimeValid(dt, cinema, movieID)) {
+			System.out.println("This time has already been taken, Please choose another time");
+			return;
+		}
 		// TODO : input base price and set for movieslot
 		MovieSlot movieslot = MovieManager.getInstance().addMovieSlot(dt,cinema, movieID, 64, 8);
 		if (movieslot == null) {
@@ -125,7 +130,7 @@ public class CinemaUI {
 					if (byActualID) {
 						System.out.println(slot.getMovieSlotID() + ". Movie" + slot.getMovieName() + " showing at " + slot.getDatetime().format(formatter));
 					} else {
-						System.out.println(i+j + ". Movie" + slot.getMovieName() + " showing at " + slot.getDatetime().format(formatter));
+						System.out.println(i+j+1 + ". Movie" + slot.getMovieName() + " showing at " + slot.getDatetime().format(formatter));
 					}
 
 				}
@@ -219,7 +224,7 @@ public class CinemaUI {
 	}
 
 	private LocalDateTime getInput_DateTime() {
-		System.out.println("Date-time in format: dd.MM HH:mm");
+		System.out.println("Date-time in format: dd.MM HH:mm (e.g 20.11 13:00)");
 		sc.nextLine();
 		sc.findInLine("(\\d\\d)\\.(\\d\\d) (\\d\\d):(\\d\\d)");
 		try {
@@ -234,5 +239,34 @@ public class CinemaUI {
 			System.err.println("Invalid date-time format.");
 			return null;
 		}
+	}
+	private boolean checkDateTimeValid(LocalDateTime newdt, Cinema cinema, int movieID) {
+		Movie movie = MovieManager.getInstance().getOneMovie(movieID);
+		ArrayList<MovieSlot> msList = movie.getSlots(cinema.getCinemaID());
+		ArrayList<LocalDateTime> dts = new ArrayList<LocalDateTime>();
+		for (MovieSlot ms : msList) {
+			dts.add(ms.getShowTime());
+		}
+		
+		LocalTime newStart = newdt.toLocalTime();
+		LocalTime newEnd = newStart.plusMinutes(movie.getDurationMins());
+		
+		// for each datetime check insert_dt not in (start + duration)
+		for (LocalDateTime oneDT : dts) {
+			// check same date
+			if (oneDT.getYear() == newdt.getYear() && oneDT.getMonth() == newdt.getMonth() && oneDT.getDayOfMonth() == newdt.getDayOfMonth()) {
+				LocalTime oneDTStart = oneDT.toLocalTime();
+		        LocalTime oneDTEnd = oneDTStart.plusMinutes(movie.getDurationMins());
+		        //check start and end conflict
+		        if ((newStart.isAfter(oneDTStart) && newStart.isBefore(oneDTEnd)) || newStart.equals(oneDTStart)) {
+		        	return false;
+		        }
+		        if ((newEnd.isAfter(oneDTStart) && newEnd.isBefore(oneDTEnd)) || newEnd.equals(oneDTEnd)) {
+		        	return false;
+		        }
+
+			}
+		}
+		return true;
 	}
 }
