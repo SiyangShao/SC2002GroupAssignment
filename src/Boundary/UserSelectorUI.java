@@ -17,6 +17,10 @@ Represents the Main UI  in Movie Booking application
 */
 public class UserSelectorUI {
 
+
+    /**
+     * The Input Scanner
+      */
     private final Scanner sc;
     /**
      * Creates a new UserSelectorUI
