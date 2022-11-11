@@ -107,6 +107,7 @@ public class CinemaUI {
 		LocalDateTime dt = getInput_DateTime();
 		if (!checkDateTimeValid(dt, cinema, movieID)) {
 			System.out.println("This time has already been taken, Please choose another time");
+			addShowTime(cinema);
 			return;
 		}
 		// TODO : input base price and set for movieslot
@@ -146,6 +147,7 @@ public class CinemaUI {
 		if (ms == null) {
 			System.out.println("Invalid Movie ID, Try Again");
 			deleteShowTime(cinema);
+			return;
 		}
 		System.out.println("Successfully deleted Showtime " + ms.getDatetime().format(formatter) + " for Movie " + ms.getMovieName() );
 	}
@@ -199,6 +201,7 @@ public class CinemaUI {
 		if (cinema == null) {
 			System.out.println("Invalid Cinema ID, Try again");
 			removeCinema(cineplex);
+			return;
 		} else {
 			System.out.println("Successfully removed Cinema " + cinema.getCinemaName());
 		}
@@ -241,15 +244,17 @@ public class CinemaUI {
 		}
 	}
 	private boolean checkDateTimeValid(LocalDateTime newdt, Cinema cinema, int movieID) {
-		Movie movie = MovieManager.getInstance().getOneMovie(movieID);
-		ArrayList<MovieSlot> msList = movie.getSlots(cinema.getCinemaID());
+		ArrayList<Movie> movies = MovieManager.getInstance().getMovies();
 		ArrayList<LocalDateTime> dts = new ArrayList<LocalDateTime>();
-		for (MovieSlot ms : msList) {
-			dts.add(ms.getShowTime());
+		for (Movie movie : movies) {
+			ArrayList<MovieSlot> msList = movie.getSlots(cinema.getCinemaID());
+			for (MovieSlot ms : msList) {
+				dts.add(ms.getShowTime());
+			}
+			
 		}
-		
 		LocalTime newStart = newdt.toLocalTime();
-		LocalTime newEnd = newStart.plusMinutes(movie.getDurationMins());
+		LocalTime newEnd = newStart.plusMinutes(MovieManager.getInstance().getOneMovie(movieID).getDurationMins());
 		
 		// for each datetime check insert_dt not in (start + duration)
 		for (LocalDateTime oneDT : dts) {
