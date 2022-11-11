@@ -2,6 +2,13 @@ package Model;
 
 import java.io.Serializable;
 
+/**
+ Represents a staff.
+ A staff can have username and hashed password for secure login
+ @author  Soh Wee Kiat
+ @version 1.0
+ @since   20 October 2022
+ */
 public class Staff implements Serializable {
 
     private String Username;

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"SC2002Assignment","l":"Boundary"},{"m":"SC2002Assignment","l":"Controller"},{"m":"SC2002Assignment","l":"Model"},{"m":"SC2002Assignment","l":"Utils"}];updateSearchResults();

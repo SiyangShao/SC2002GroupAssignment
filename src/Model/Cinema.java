@@ -1,11 +1,15 @@
 package Model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import Controller.CineplexManager;
 import Controller.MovieManager;
 
+/**
+ Represents a Cinema
+ @version 1.0
+ @since   20 October 2022
+ */
 public class Cinema implements Serializable {
     private CinemaType type;
 	private int CinemaID;

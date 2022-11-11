@@ -9,6 +9,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+/**
+ Represents a student enrolled in the school.
+ A student can be enrolled in many courses.
+ @author  Soh Wee Kiat
+ @version 1.0
+ @since   20 October 2022
+ */
 public class UserManager extends ManagerBase {
     private static UserManager instance = null;
 

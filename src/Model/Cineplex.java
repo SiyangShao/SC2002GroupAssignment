@@ -2,9 +2,13 @@ package Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import Controller.CineplexManager;
 
+/**
+ Represents a Cineplex
+ @version 1.0
+ @since   20 October 2022
+ */
 public class Cineplex implements Serializable {
 	private String CineplexName;
 	private String Location;

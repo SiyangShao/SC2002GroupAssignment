@@ -2,23 +2,11 @@ package Boundary;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import Controller.CalendarManager;
 import Controller.MovieManager;
-
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import Controller.CineplexManager;
-import Controller.MovieManager;
 import Model.*;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.regex.MatchResult;
-
 import Model.Movie;
 
 public class MovieUI {

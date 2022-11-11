@@ -2,10 +2,14 @@ package Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import Controller.MovieManager;
 import Controller.UserManager;
 
+/**
+ Represents a Movie
+ @version 1.0
+ @since   20 October 2022
+ */
 public class Movie implements Serializable {
     private int MovieID;
     private MovieRating MovieRating;
