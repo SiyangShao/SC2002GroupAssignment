@@ -6,7 +6,6 @@ import Model.Ticket;
 import Model.TicketType;
 import Model.User;
 import Model.Movie;
-<<<<<<< Updated upstream
 import Model.MovieStatus;
 
 import java.util.*;

@@ -21,32 +21,8 @@ public class Movie implements Serializable {
     private String Director;
     private ArrayList<String> Cast;
     private ArrayList<Review> Reviews;
-    // =========Jeda===================
     private int TicketsSold = 0;
-    private int NoOfReviewers = 0;
-    private String ReviewComment;
-//=========
-    public void setRev(String reviewComment){
-        ReviewComment = reviewComment;
-    }
-
-    public String getRevCom(){
-        return ReviewComment;
-    }
-//==========  
-    public void Tix(){
-        this.TicketsSold += 1;
-    }
-
-    public int getTix(){
-        return this.TicketsSold;
-    }
-
-
-    // =========End Jeda===============
-    
     private ArrayList<MovieSlot> Slots;
-
     private int DurationMins;
 
     public Movie(String title, int type,  int status, int movieRating, String desc, int duration, String direc) {
@@ -78,6 +54,16 @@ public class Movie implements Serializable {
         this.Cast = new ArrayList<>();
         this.Reviews = new ArrayList<>();
         MovieManager.getInstance().Save();
+    }
+
+    
+
+    public void Tix(){
+        this.TicketsSold += 1;
+    }
+
+    public int getTix(){
+        return this.TicketsSold;
     }
 
     public int getMovieID() {
