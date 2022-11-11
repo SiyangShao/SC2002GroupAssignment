@@ -270,7 +270,7 @@ public class UserSelectorUI {
         		
         	}
         	else if (listOfMovie.getStatus() == MovieStatus.COMING_SOON) {
-        		System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle() + "(COMING SOON)");
+        		System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle() + " (COMING SOON)");
         	}
         	else {
         		System.out.println(listOfMovie.getMovieID() + ".\t\t\t" + listOfMovie.getTitle());
