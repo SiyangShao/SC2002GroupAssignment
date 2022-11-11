@@ -357,7 +357,7 @@ public class UserSelectorUI {
      * Handles the View Top 5 Movie by Sales UI for User
      */
     private void top5Movies_SalesUI(ArrayList<Movie> listOfMovies) {
-        System.out.println("Top 5 Movies based on Ticket Sales (lowest to highest)");
+        System.out.println("Top 5 Movies based on Ticket Sales (highest to lowest)");
         HashMap<String, Integer> TixTable = new HashMap<String, Integer>();                    
         for(Movie movieInList : listOfMovies){
             //System.out.println();
@@ -368,7 +368,7 @@ public class UserSelectorUI {
             public int compare(Map.Entry<String, Integer> o1,
                                Map.Entry<String, Integer> o2)
             {
-                return (o1.getValue()).compareTo(o2.getValue());
+                return (o2.getValue()).compareTo(o1.getValue());
             }
         });
         HashMap<String, Integer> sortMap = new LinkedHashMap<String, Integer>();
@@ -388,7 +388,7 @@ public class UserSelectorUI {
      * Handles the View Top 5 Movie by Review UI for User
      */
     private void top5Movies_ReviewUI(ArrayList<Movie> listOfMovies) {
-        System.out.println("Top 5 Movies based on Review Ratings (lowest to highest)");
+        System.out.println("Top 5 Movies based on Review Ratings (highest to lowest)");
         HashMap<String, Double> reviewRatingTable = new HashMap<String, Double>();                    
         for(Movie movieInList : listOfMovies){
             reviewRatingTable.put(movieInList.getTitle(), movieInList.getAvgRating());
@@ -398,7 +398,7 @@ public class UserSelectorUI {
             public int compare(Map.Entry<String, Double> o1,
                                Map.Entry<String, Double> o2)
             {
-                return (o1.getValue()).compareTo(o2.getValue());
+                return (o2.getValue()).compareTo(o1.getValue());
             }
         });
         HashMap<String, Double> sortedMap = new LinkedHashMap<String, Double>();
