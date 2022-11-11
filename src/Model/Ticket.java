@@ -1,7 +1,6 @@
 package Model;
 
 import java.io.Serializable;
-
 /**
  Represents a Ticket
  @version 1.0
@@ -54,6 +53,9 @@ public class Ticket extends Seat implements Serializable {
             case CHILD -> this.finalPrice = basePrice * child;
             default -> this.finalPrice = basePrice;
         }
+        this.finalPrice = this.finalPrice * 100;
+        this.finalPrice = ((int) this.finalPrice);
+        this.finalPrice /= 100;
     }
 
     /**

@@ -239,6 +239,7 @@ public class UserSelectorUI {
             System.out.println(i + 1 + ".\t\t\t" + listOfMovies.get(i).getTitle());
         }
         // User can select the movie by the MovieID to view the details of the movie
+
         System.out.print("Please select the Movie ID to view the details of the movie: ");
         int movieChoice2 = sc.nextInt();
 
@@ -278,21 +279,29 @@ public class UserSelectorUI {
         System.out.println("Please select the Movie ID to view the details of the movie: ");
         int movieID = sc.nextInt();
         Movie movie = MovieManager.getInstance().getOneMovie(movieID);
+
+        if (movie == null) {
+            System.out.println("Movie ID not found.");
+            return;
+        }
+
         if (movie.getStatus() == MovieStatus.COMING_SOON) {
         	System.out.println("Movie is not out yet.");
         	return;
         	
         }
-        if (movie == null) {
-            System.out.println("Movie ID not found.");
+        if (movie.getStatus() == MovieStatus.END_OF_SHOWING) {
+            System.out.println("Movie's final screening has passed");
             return;
         }
+
         System.out.println("Here are the list of movie slots:");
         System.out.println("=====================================");
-        System.out.println("MOVIE SLOT ID\t\tMOVIE SLOT\t\tShow Time\t\tCinemaID\t\tSeats Rest");
+        System.out.println("MOVIE SLOT ID\t\tMOVIE SLOT\t\tShow Time\t\tCinemaID\t\tSeats Remaining");
         System.out.println("=====================================");
         for (Model.MovieSlot movieSlot : movie.getSlots()) {
-            System.out.println(movieSlot.getMovieSlotID() + ".\t\t\t" + movieSlot.getMovieName() + "\t\t" + movieSlot.getShowTime() + "\t\t" + movieSlot.getCinemaID() + "\t\t" + movieSlot.remainSeatNumber());
+            System.out.println(movieSlot.getMovieSlotID() + ".\t\t\t" + movieSlot.getMovieName() + "\t\t" + movieSlot.getShowTime() +
+                    "\t\t" + movieSlot.getCinemaID() + "\t\t\t\t" + movieSlot.remainSeatNumber());
         }
         System.out.println("Please enter the movie slot ID you want to book: ");
         int movieSlotID = sc.nextInt();
@@ -353,7 +362,7 @@ public class UserSelectorUI {
      * Handles the View Top 5 Movie by Sales UI for User
      */
     private void top5Movies_SalesUI(ArrayList<Movie> listOfMovies) {
-        System.out.println("Top 5 Movies based on Ticket Sales(lowest to highest)");
+        System.out.println("Top 5 Movies based on Ticket Sales (lowest to highest)");
         HashMap<String, Integer> TixTable = new HashMap<String, Integer>();                    
         for(Movie movieInList : listOfMovies){
             //System.out.println();
@@ -384,7 +393,7 @@ public class UserSelectorUI {
      * Handles the View Top 5 Movie by Review UI for User
      */
     private void top5Movies_ReviewUI(ArrayList<Movie> listOfMovies) {
-        System.out.println("Top 5 Movies based on Review Ratings(lowest to highest)");
+        System.out.println("Top 5 Movies based on Review Ratings (lowest to highest)");
         HashMap<String, Double> reviewRatingTable = new HashMap<String, Double>();                    
         for(Movie movieInList : listOfMovies){
             reviewRatingTable.put(movieInList.getTitle(), movieInList.getAvgRating());

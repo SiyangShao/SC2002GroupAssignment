@@ -316,7 +316,7 @@ public class MovieSlot implements Serializable {
                 System.out.println("The type of the ticket is " + type);
                 this.seats.remove(seat);
                 Ticket newTicket = new Ticket(seatNo, this.MovieID, getBasePrice(), type, transactionID);
-                System.out.println("The final price of the ticket is " + newTicket.getFinalPrice());
+                System.out.println("The final price of the ticket is $" + newTicket.getFinalPrice());
                 this.tickets.add(newTicket);
                 MovieManager.getInstance().Save();
                 return newTicket.getFinalPrice();
@@ -356,7 +356,7 @@ public class MovieSlot implements Serializable {
         }
         System.out.println("You have successfully booked " + seatsNo.size() + " seats.");
         System.out.println("The transaction ID is " + TransactionID);
-        System.out.println("The total price is " + totalPrice);
+        System.out.println("The total price is $" + totalPrice );
         MovieManager.getInstance().Save();
         return TransactionID;
     }
@@ -381,7 +381,7 @@ public class MovieSlot implements Serializable {
             if (ticket.getTransactionID().equals(TransactionID)) {
                 System.out.println("Seat No: " + ticket.getSeatNo());
                 System.out.println("Ticket Type: " + ticket.getType());
-                System.out.println("Final Price: " + ticket.getFinalPrice());
+                System.out.println("Final Price: $" + ticket.getFinalPrice());
             }
         }
     }
