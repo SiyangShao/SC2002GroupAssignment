@@ -2,20 +2,42 @@ package Boundary;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import Controller.CalendarManager;
 import Controller.MovieManager;
+
 import java.time.LocalDateTime;
+
 import Model.*;
+
 import java.util.regex.MatchResult;
+
 import Model.Movie;
 
+/**
+ * Represents a CalendarUI
+ *
+ * @version 1.0
+ * @since 11 November 2022
+ */
 public class MovieUI {
+    /**
+     * Scanner to read user input
+     */
     private final Scanner sc;
 
+    /**
+     * Creates a new MovieUI with the given Scanner
+     *
+     * @param sc Scanner to read user input
+     */
     public MovieUI(Scanner sc) {
         this.sc = sc;
     }
 
+    /**
+     * Display the movie menu
+     */
     public void HandleMovieUI() {
         System.out.println("What would you like to do?");
         System.out.println("1. Add New Movie");
@@ -35,7 +57,7 @@ public class MovieUI {
                 removeMovie();
                 break;
             case 4:
-            	System.out.println("List of Movies");
+                System.out.println("List of Movies");
                 listMovies();
                 HandleMovieUI();
                 break;
@@ -44,6 +66,9 @@ public class MovieUI {
         }
     }
 
+    /**
+     * Add Movie
+     */
     private void addMovie() {
         // String title,MovieType type, MovieStatus status, String desc, String direc
         System.out.println("Create New Movie");
@@ -51,6 +76,10 @@ public class MovieUI {
                 getInput_Desc(), getInput_Duration(), getInput_Direc());
         System.out.println("Successfully added new Movie: " + m.getTitle());
     }
+
+    /**
+     * Update Movie Menu
+     */
 
     private void updateMovie() {
         Object value = null;
@@ -112,6 +141,9 @@ public class MovieUI {
         }
     }
 
+    /**
+     * System Setting Menu
+     */
     public void HandleSystemSettings() {
         System.out.println("Please enter configuration settings");
         System.out.println("1. Change Holiday Settings");
@@ -134,6 +166,9 @@ public class MovieUI {
         }
     }
 
+    /**
+     * Holiday Settings Menu
+     */
     private void HandleHolidaySettings() {
         System.out.println("Please enter Holiday Settings");
         System.out.println("1. Add Holiday");
@@ -165,6 +200,11 @@ public class MovieUI {
         }
     }
 
+    /**
+     * Get input all time
+     *
+     * @return ArrayList of LocalDateTime which includes all the holiday time
+     */
     private ArrayList<LocalDateTime> getInput_DateTime() {
         System.out.println("Date-time in format: dd.MM");
         sc.nextLine();
@@ -186,6 +226,9 @@ public class MovieUI {
         }
     }
 
+    /**
+     * Cinema Class Settings Menu
+     */
     public void HandleCinemaClassSettings() {
         System.out.println("Please input new Price for Cinema Class");
         System.out.println("1. Platinum");
@@ -221,6 +264,9 @@ public class MovieUI {
         }
     }
 
+    /**
+     * Remove Movie Menu
+     */
     private void removeMovie() {
         System.out.println("Remove Movie");
         listMovies();
@@ -237,6 +283,9 @@ public class MovieUI {
         }
     }
 
+    /**
+     * List all movies
+     */
     public void listMovies() {
         ArrayList<Movie> movies = MovieManager.getInstance().getMovies();
         if (movies == null) {
@@ -250,10 +299,21 @@ public class MovieUI {
         }
     }
 
+    /**
+     * Get input movie type
+     *
+     * @return MovieType in int
+     */
     private int getInput_Type() {
         System.out.println("Enter Movie Type (1. 3D, 2. BlockBuster, 3. Anime)");
         return sc.nextInt();
     }
+
+    /**
+     * Get input movie title
+     *
+     * @return Movie title in String
+     */
 
     private String getInput_Title() {
         System.out.println("Enter Movie Title");
@@ -261,26 +321,54 @@ public class MovieUI {
         return sc.nextLine();
     }
 
+    /**
+     * Get input movie status
+     *
+     * @return MovieStatus in int
+     */
     private int getInput_Status() {
         System.out.println("Enter Movie Status (1. COMING SOON, 2. PREVIEW, 3. NOW SHOWING, 4. END OF SHOWING)");
         return sc.nextInt();
     }
 
+    /**
+     * Get input movie rating
+     *
+     * @return MovieRating in int
+     */
     private int getInput_MovieRating() {
         System.out.println("Enter Movie Rating (1. G, 2. PG, 3. R18, 4. R21)");
         return sc.nextInt();
     }
+
+    /**
+     * Get input movie duration
+     *
+     * @return Movie duration in int
+     */
 
     private int getInput_Duration() {
         System.out.println("Enter Movie Duration in Minutes");
         return sc.nextInt();
     }
 
+    /**
+     * Get input movie description
+     *
+     * @return Movie description in String
+     */
+
     private String getInput_Desc() {
         System.out.println("Enter Movie Description");
         sc.nextLine();        // To remove the carriage return character
         return sc.nextLine();
     }
+
+    /**
+     * Get input movie cast
+     *
+     * @return Movie cast in String
+     */
 
     private ArrayList<String> getInput_Cast() {
         ArrayList<String> cast = new ArrayList<String>();
@@ -294,6 +382,11 @@ public class MovieUI {
         return cast;
     }
 
+    /**
+     * Get input movie director
+     *
+     * @return Movie director in String
+     */
     private String getInput_Direc() {
         System.out.println("Enter Movie Director");
         sc.nextLine();        // To remove the carriage return character
