@@ -213,7 +213,12 @@ public class Movie implements Serializable {
         System.out.println("Synopsis       : " + Description);
         System.out.println("Type           : " + Type);
         System.out.println("Movie Rating   : " + MovieRating);
-        System.out.println("Review Rating  : " + ReviewRating/NoOfReviewers);
+        if (Double.isNaN(ReviewRating/NoOfReviewers))
+        {
+            System.out.println("Review Comments: NA");
+        }
+        else
+            System.out.println("Review Rating  : " + ReviewRating/NoOfReviewers);
         if (ReviewComment == null)
         {
             System.out.println("Review Comments: NA");
