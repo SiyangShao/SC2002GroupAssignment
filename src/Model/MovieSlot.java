@@ -8,29 +8,71 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MovieSlot implements Serializable {
+    /**
+     * The date and time of the movie slot
+     */
     private LocalDateTime datetime;
+    /**
+     * The discount for platinum cinema
+     */
 
     static private double platinumPrice = 1.5;
+    /**
+     * The discount for gold cinema
+     */
 
     static private double goldPrice = 1.2;
-
+    /**
+     * The discount for normal cinema
+     */
     static private double normalPrice = 1;
-
+    /**
+     * The price for holiday
+     */
     static private double HolidayPrice = 1.5;
-
+    /**
+     * The movie ID
+     */
     private int MovieID;
+    /**
+     * The cinema ID
+     */
     private int CinemaID;
+    /**
+     * The MovieSlot ID
+     */
     private int MovieSlotID;
+    /**
+     * The base price of the movie
+     */
 
     private double basePrice;
+    /**
+     * The movie name
+     */
     private String MovieName;
 
-    /*
-    seats are unsold out tickets, and tickets are sold out seats
+    /**
+     * unsold seats
      */
     private final ArrayList<Seat> seats;
+    /**
+     * sold tickets
+     */
 
     private final ArrayList<Ticket> tickets;
+
+    /**
+     * The constructor of the movie slot
+     *
+     * @param datetime     The date and time of the movie slot
+     * @param MOVIE        The movie of the movie slot
+     * @param CINEMA       The cinema of the movie slot
+     * @param seat_numbers The seat numbers of the movie slot
+     * @param basePrice    The base price of the movie slot
+     * @param dateType     The date type of the movie slot
+     * @param cinemaType   The cinema type of the movie slot
+     */
 
     public MovieSlot(LocalDateTime datetime, int MOVIE, int CINEMA, int seat_numbers, double basePrice, DateType dateType, CinemaType cinemaType) {
         double holidayPrice = 1.2;
@@ -44,7 +86,7 @@ public class MovieSlot implements Serializable {
             case GOLD -> basePrice *= goldPrice;
             default -> basePrice *= normalPrice;
         }
-        if(CalendarManager.getInstance().isHoliday(datetime)) {
+        if (CalendarManager.getInstance().isHoliday(datetime)) {
             basePrice *= HolidayPrice;
         }
         setDatetime(datetime);
@@ -61,13 +103,24 @@ public class MovieSlot implements Serializable {
         this.tickets = new ArrayList<>();
         MovieManager.getInstance().Save();
     }
-    public void setPrice(CinemaType type, double price){
+
+    /**
+     * Set base price of the movie slot
+     *
+     * @param type  The type of the date and time
+     * @param price The price of the movie slot
+     */
+    public void setPrice(CinemaType type, double price) {
         switch (type) {
             case PLATINUM -> platinumPrice = price;
             case GOLD -> goldPrice = price;
             default -> normalPrice = price;
         }
     }
+
+    /**
+     * Set MovieSlotID
+     */
     private void setMovieSlotID() {
         int count = 0;
         ArrayList<Movie> Movies = MovieManager.getInstance().getMovies();
@@ -78,53 +131,124 @@ public class MovieSlot implements Serializable {
         MovieManager.getInstance().Save();
     }
 
+    /**
+     * Set the basePrice of the movie slot
+     *
+     * @param basePrice The basePrice of the movie slot
+     */
+
     public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
     }
+
+    /**
+     * Get the basePrice of the movie slot
+     *
+     * @return The basePrice of the movie slot
+     */
 
     public double getBasePrice() {
         return basePrice;
     }
 
+    /**
+     * Get the MovieSlotID
+     *
+     * @return The MovieSlotID
+     */
     public int getMovieSlotID() {
         return MovieSlotID;
     }
 
+    /**
+     * set the Movie name
+     *
+     * @param movieID The movie ID
+     */
     private void setMovieName(int movieID) {
         this.MovieName = MovieManager.getInstance().getOneMovie(movieID).getTitle();
     }
 
+    /**
+     * Get the movie date and time
+     *
+     * @return The movie date and time
+     */
     public LocalDateTime getDatetime() {
         return datetime;
     }
 
+    /**
+     * Set the movie date and time
+     *
+     * @param datetime The movie date and time
+     */
     public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
     }
 
+    /**
+     * Get the movie ID
+     *
+     * @return The movie ID
+     */
     public int getMovieID() {
         return MovieID;
     }
+
+    /**
+     * set the movie ID
+     *
+     * @param movieID The movie ID
+     */
 
     public void setMovieID(int movieID) {
         MovieID = movieID;
     }
 
+    /**
+     * Get the cinema ID
+     *
+     * @return The cinema ID
+     */
+
     public int getCinemaID() {
         return CinemaID;
     }
+
+    /**
+     * Set the cinema ID
+     *
+     * @param cinemaID The cinema ID
+     */
 
     public void setCinemaID(int cinemaID) {
         CinemaID = cinemaID;
     }
 
+    /**
+     * get the movie name
+     *
+     * @return The movie name
+     */
+
     public String getMovieName() {
         return MovieName;
     }
 
+    /**
+     * Get remained seat number
+     *
+     * @return get remained seat number
+     */
+
     public int remainSeatNumber() {
         return this.seats.size();
     }
+
+    /**
+     * Show seats
+     */
 
     public void showSeats() {
         int seatCount = 0;      // To keep track which seats are taken
@@ -146,7 +270,7 @@ public class MovieSlot implements Serializable {
                 System.out.println();
             }
 
-            // If single digit, make into double digit
+            // If single digit, make into double-digit
             if ((seat.getSeatNo() + 1) < 10) {
                 System.out.printf("[ 0" + (int) (seat.getSeatNo() + 1) + " ] ");
                 continue;
@@ -158,6 +282,12 @@ public class MovieSlot implements Serializable {
         System.out.println();
     }
 
+    /**
+     * Check if the seat is available
+     *
+     * @param seatNo The seat number
+     * @return True if the seat is available, false otherwise
+     */
     public boolean checkSeat(int seatNo) {
         for (Seat seat : this.seats) {
             if (seat.getSeatNo() == seatNo) {
@@ -167,6 +297,14 @@ public class MovieSlot implements Serializable {
         return false;
     }
 
+    /**
+     * Book a seat
+     *
+     * @param seatNo        The seat number
+     * @param type          The type of the ticket
+     * @param transactionID The transaction ID
+     * @return Ticket Price
+     */
     private double bookSeats(int seatNo, TicketType type, String transactionID) {
         for (Seat seat : this.seats) {
             if (seat.getSeatNo() == seatNo) {
@@ -183,6 +321,13 @@ public class MovieSlot implements Serializable {
         return 0;
     }
 
+    /**
+     * Book tickets
+     *
+     * @param seatsNo The seats number
+     * @param types   The types of the tickets
+     * @return Transaction ID
+     */
     public String bookSeats(ArrayList<Integer> seatsNo, ArrayList<TicketType> types) {
         String bookingTime = LocalDateTime.now().toString();
         String TransactionID = this.CinemaID + "#" + this.MovieID + "#" + this.datetime + "#" + bookingTime;
@@ -212,6 +357,11 @@ public class MovieSlot implements Serializable {
         return TransactionID;
     }
 
+    /**
+     * Show Transaction history
+     *
+     * @param TransactionID The transaction ID
+     */
     public void showTransactionHistory(String TransactionID) {
         System.out.println("The detail of " + TransactionID + " is:");
         String[] transactionIDSplit = TransactionID.split("#");
@@ -232,6 +382,11 @@ public class MovieSlot implements Serializable {
         }
     }
 
+    /**
+     * Remove a ticket
+     *
+     * @param seatNo The seat number
+     */
     private void removeTicket(int seatNo) {
         for (Ticket ticket : this.tickets) {
             if (ticket.getSeatNo() == seatNo) {
@@ -245,6 +400,12 @@ public class MovieSlot implements Serializable {
         }
     }
 
+    /**
+     * Remove ticket
+     *
+     * @param transactionID The transaction ID
+     * @return True if the transaction is removed, false otherwise
+     */
     public boolean removeTicket(String transactionID) {
         ArrayList<Integer> seatNoList = new ArrayList<>();
         for (Ticket ticket : this.tickets) {
@@ -263,6 +424,11 @@ public class MovieSlot implements Serializable {
         return true;
     }
 
+    /**
+     * Get the showtime
+     *
+     * @return The showtime
+     */
     public LocalDateTime getShowTime() {
         return this.datetime;
     }
