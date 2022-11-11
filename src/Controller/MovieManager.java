@@ -18,10 +18,12 @@ import Utils.Config;
  */
 
 public class MovieManager extends ManagerBase {
+
     /**
      * The ArrayList which contains all the Movies
      */
     private ArrayList<Movie> Movies;
+
     /**
      * The only instance of itself, MovieManager
      */
@@ -64,7 +66,7 @@ public class MovieManager extends ManagerBase {
     /**
      * Removes Movie from the ArrayList of Movies
      * @param movieID The movieID of the Movie to be removed
-     * @return The Movie removed
+     * @return The removed Movie
      */
     public Movie removeMovie(int movieID) {
         Movie oneMovie = null;
@@ -94,7 +96,7 @@ public class MovieManager extends ManagerBase {
     /**
      * Update Movie details using movieID
      * @param movieID movieID of the movie to be updated
-     * @param choice user's choice to decide which details of the Movie to be updated
+     * @param choice User's choice to decide which details of the Movie to be updated
      * @param newValue The new value of the Movie detail to be updated to
      * @return The updated Movie
      */
