@@ -145,7 +145,13 @@ public class MovieManager extends ManagerBase {
      * @return the ArrayList of Movies
      */
     public ArrayList<Movie> getMovies() {
-        return this.Movies;
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        for (Movie m : this.Movies)
+        {
+            if (m.getStatus() != MovieStatus.END_OF_SHOWING)
+                movies.add(m);
+        }
+        return movies;
     }
 
     /**

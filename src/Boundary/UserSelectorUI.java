@@ -288,11 +288,6 @@ public class UserSelectorUI {
         if (movie.getStatus() == MovieStatus.COMING_SOON) {
         	System.out.println("Movie is not out yet.");
         	return;
-        	
-        }
-        if (movie.getStatus() == MovieStatus.END_OF_SHOWING) {
-            System.out.println("Movie's final screening has passed");
-            return;
         }
 
         System.out.println("Here are the list of movie slots:");
