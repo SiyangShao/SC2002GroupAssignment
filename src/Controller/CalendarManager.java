@@ -27,7 +27,7 @@ public class CalendarManager extends ManagerBase {
 	/**
 	 * The only instance of itself, CalendarManager
 	 */
-	private static CalendarManager instance;
+	private static CalendarManager instance = null;
 
 	/**
 	 * Creates a new CalendarManager

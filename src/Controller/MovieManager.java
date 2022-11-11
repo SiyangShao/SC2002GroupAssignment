@@ -27,7 +27,7 @@ public class MovieManager extends ManagerBase {
     /**
      * The only instance of itself, MovieManager
      */
-    private static MovieManager instance;
+    private static MovieManager instance = null;
 
     /**
      * Creates a new MovieManager
