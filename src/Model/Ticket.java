@@ -2,8 +2,12 @@ package Model;
 
 import java.io.Serializable;
 
+/**
+ Represents a Ticket
+ @version 1.0
+ @since   20 October 2022
+ */
 public class Ticket extends Seat implements Serializable {
-    //    private int MovieID;
     /**
      * The type of the ticket
      */
