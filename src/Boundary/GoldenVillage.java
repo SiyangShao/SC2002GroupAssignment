@@ -9,7 +9,15 @@ import Model.*;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+Represents the Main UI in Movie Booking application
+@version 1.0
+@since   20 October 2022
+*/
 public class GoldenVillage {
+	/**
+	 @param args Default Java Input
+	 */
 	public static void main(String[] args) {
 		// Declaration of variables
 		String CurPath = Paths.get("").toAbsolutePath().toString() + "/";
