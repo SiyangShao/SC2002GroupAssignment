@@ -2,11 +2,15 @@ package Model;
 
 import Controller.CalendarManager;
 import Controller.MovieManager;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ Represents a Movie time slot
+ @version 1.0
+ @since   20 October 2022
+ */
 public class MovieSlot implements Serializable {
     /**
      * The date and time of the movie slot
