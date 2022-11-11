@@ -38,7 +38,7 @@ public class GoldenVillage {
 					}
 					break;
 				case 2:
-					userSelectorUI.DisplayMovieGoerActions();
+					userSelectorUI.DisplayMovieGoerActions(movieUI);
 					break;
 				case 3:
 					System.out.println("Exiting...");

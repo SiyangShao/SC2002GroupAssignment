@@ -1,13 +1,17 @@
 package Model;
 
-public class Review {
+import java.io.Serializable;
+
+public class Review implements Serializable {
 	private int MovieID;
 	private String comment;
 	private double rating;
-	//userid  
+	private int UserID;
 	
-	public Review() {
-		
+	public Review(String comment, double rating, int userID)  {
+		this.comment = comment;
+		this.rating = rating;
+		this.UserID = userID;
 	}
 
 	public int getMovieID() {
@@ -17,7 +21,9 @@ public class Review {
 	public void setMovieID(int movieID) {
 		MovieID = movieID;
 	}
-
+	public int getUserID()  {
+		return this.UserID;
+	}
 	public String getComment() {
 		return comment;
 	}

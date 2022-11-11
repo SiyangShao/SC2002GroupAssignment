@@ -49,10 +49,17 @@ public class UserManager extends ManagerBase {
 
     public User AddUser(String Email, String Name, String Phone)
     {
-        User NewUser = new User(String.format("%d",this.Users.size() + 1), Email, Name, Phone);
+        User NewUser = new User(this.Users.size() + 1, Email, Name, Phone);
         this.Users.add(NewUser);
         this.Save();
         return NewUser;
+    }
+    
+    public User GetUserById(int UserID) {
+    	for (User u : Users) {
+    		if (u.getUserId() == UserID) return u;
+    	}
+    	return null;
     }
 
     private String GenerateHashedPassword(String Password)

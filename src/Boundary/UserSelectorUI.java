@@ -86,7 +86,7 @@ public class UserSelectorUI {
     }
 
 
-    public void DisplayMovieGoerActions() {
+    public void DisplayMovieGoerActions(MovieUI movieUI) {
         ArrayList<Movie> listOfMovies = MovieManager.getInstance().getMovies();
         User u = this.GetMovieGoerInfo();
         do {
@@ -96,9 +96,10 @@ public class UserSelectorUI {
             System.out.println("2. List movies");       // View movie details can be selected from this option
             System.out.println("3. Purchase movie tickets"); // Further branch to seats also
             System.out.println("4. View booking history");
-            System.out.println("5. List top 5 movies by ticket sales");
-            System.out.println("6. List top 5 movies by overall ratings");
-            System.out.println("7. Exit");
+            System.out.println("5. Add Review");
+            System.out.println("6. List top 5 movies by ticket sales");
+            System.out.println("7. List top 5 movies by overall ratings");
+            System.out.println("8. Exit");
             System.out.println("\n================================\n");
 
             int choice = sc.nextInt();
@@ -258,6 +259,15 @@ public class UserSelectorUI {
                     u.viewBookingHistory(listOfMovies);
                     break;
                 case 5:
+                	System.out.println("List of Movies");
+                	movieUI.listMovies();
+                	System.out.println("Which movie would you like to review?");
+                	movieID = sc.nextInt();
+                	movie = MovieManager.getInstance().getOneMovie(movieID);
+                	u.setMovieRating(movie);
+                	
+                	break;
+                case 6:
                     System.out.println("Top 5 Movies based on Ticket Sales(lowest to highest)");
                     HashMap<String, Integer> TixTable = new HashMap<String, Integer>();                    
                     for(Movie movieInList : listOfMovies){
@@ -285,11 +295,11 @@ public class UserSelectorUI {
                     }
                     
                     break;
-                case 6:
+                case 7:
                     System.out.println("Top 5 Movies based on Review Ratings(lowest to highest)");
                     HashMap<String, Double> reviewRatingTable = new HashMap<String, Double>();                    
                     for(Movie movieInList : listOfMovies){
-                        reviewRatingTable.put(movieInList.getTitle(), movieInList.GetAveRating());
+                        reviewRatingTable.put(movieInList.getTitle(), movieInList.getAvgRating());
                     }
                     List<Map.Entry<String, Double> > list = new LinkedList<Map.Entry<String, Double> >(reviewRatingTable.entrySet());
                     Collections.sort(list, new Comparator<Map.Entry<String, Double> >() {
@@ -312,7 +322,7 @@ public class UserSelectorUI {
                     }
                     break;
                 // Exiting
-                case 7:
+                case 8:
                     System.out.println("Exiting...");
                     return;
                 default:

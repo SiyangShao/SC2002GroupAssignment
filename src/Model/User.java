@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.MovieManager;
 import Controller.UserManager;
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class User implements Serializable {
 
-    private String UserId;
+    private int UserId;
     private String Email;
     private String Name;
     private String Phone;
@@ -19,7 +20,7 @@ public class User implements Serializable {
 
     private ArrayList<String> CancelledTransactionID;
 
-    public User(String UserId, String Email, String Name, String Phone) {
+    public User(int UserId, String Email, String Name, String Phone) {
         this.UserId = UserId;
         this.Email = Email;
         this.Name = Name;
@@ -29,7 +30,7 @@ public class User implements Serializable {
         UserManager.getInstance().Save();
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return UserId;
     }
 
@@ -59,12 +60,12 @@ public class User implements Serializable {
 
     private void viewBookingHistory(String TransactionID, MovieSlot movieSlot, Movie movie) {
         movieSlot.showTransactionHistory(TransactionID);
-        this.setMovieRating(movie);
+//        this.setMovieRating(movie);
     }
 
-    private void setMovieRating(Movie movie){
-        Review review = new Review();
-        review.setMovieID(movie.getMovieID());
+    public void setMovieRating(Movie movie){
+    	String comment;
+    	double rating = 0;
         Scanner reviewScanner = new Scanner(System.in);
         try{
             while(true){
@@ -74,13 +75,11 @@ public class User implements Serializable {
                 String empty = new String("NA");
                 if (reviewComment.equals(end))
                 {
-                    review.setComment(empty);
-                    movie.setRev(empty);
+                    comment = "";
                 }
                 else
                 {
-                    review.setComment(reviewComment);
-                    movie.setRev(review.getComment());    
+                    comment = reviewComment;  
                 }
                 
                 System.out.print("Leave a review: (1-5, 0 to do it next time.): ");
@@ -89,14 +88,16 @@ public class User implements Serializable {
                     break;
                 }
                 else if (reviewRating <= 5.0 || reviewRating >= 1.0){
-                    review.setRating(reviewRating);
-                    movie.AddRating(review.getRating());
+                    rating = reviewRating;
                     break;
                 }
                 else{
                     continue;
                 }
             }
+            System.out.println("COMMENT : " + comment);
+            movie.addMovieReview(comment,rating, this.UserId);
+            MovieManager.getInstance().Save();
         }
         catch (Exception err){
             System.err.println(err);

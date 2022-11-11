@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import Controller.MovieManager;
+import Controller.UserManager;
 
 public class Movie implements Serializable {
     private int MovieID;
@@ -15,7 +16,7 @@ public class Movie implements Serializable {
     private String Description;
     private String Director;
     private ArrayList<String> Cast;
-
+    private ArrayList<Review> Reviews;
     // =========Jeda===================
     private int TicketsSold = 0;
     private int NoOfReviewers = 0;
@@ -37,26 +38,6 @@ public class Movie implements Serializable {
         return this.TicketsSold;
     }
 
-    public int GetNoOfReviewers(){
-        return this.NoOfReviewers;
-    }
-
-    private void NoOfReviwersIncre(){
-        this.NoOfReviewers += 1;
-    }
-
-    private void AddReview(double reviewRating){
-        this.ReviewRating += reviewRating;
-    }
-
-    public double GetAveRating(){
-        return this.ReviewRating/this.NoOfReviewers;
-    }
-
-    public void AddRating(double rating){
-        this.AddReview(rating);
-        this.NoOfReviwersIncre();
-    }
 
     // =========End Jeda===============
     
@@ -75,6 +56,7 @@ public class Movie implements Serializable {
         this.MovieID = MovieManager.getInstance().getSize() + 1;
         this.Slots = new ArrayList<>();
         this.Cast = new ArrayList<>();
+        this.Reviews = new ArrayList<>();
         MovieManager.getInstance().Save();
     }
 
@@ -90,6 +72,7 @@ public class Movie implements Serializable {
         this.MovieID = MovieManager.getInstance().getSize() + 1;
         this.Slots = new ArrayList<>();
         this.Cast = new ArrayList<>();
+        this.Reviews = new ArrayList<>();
         MovieManager.getInstance().Save();
     }
 
@@ -174,7 +157,12 @@ public class Movie implements Serializable {
 	public double getReviewRating() {
 		return ReviewRating;
 	}
-
+	
+	public void addMovieReview(String comment, double rating, int userID) {
+		Review review = new Review(comment,rating, userID);
+		this.Reviews.add(review);
+	}
+	
 	public void setReviewRating(double reviewRating) {
 		ReviewRating = reviewRating;
 	}
@@ -213,18 +201,20 @@ public class Movie implements Serializable {
         System.out.println("Synopsis       : " + Description);
         System.out.println("Type           : " + Type);
         System.out.println("Movie Rating   : " + MovieRating);
-        if (Double.isNaN(ReviewRating/NoOfReviewers))
-        {
-            System.out.println("Review Comments: NA");
+        
+       
+        if (getAvgRating() == 0) System.out.println("Review Rating	: NA");
+        else System.out.println("Review Rating: " + getAvgRating());
+        
+        System.out.println("Review Comments: ");
+        for(int i = 0 ; i < Reviews.size(); i++){
+        	if (Reviews.size() == 0) {
+            	System.out.printf(" NA");
+            }
+        	System.out.println("   Name: " + UserManager.getInstance().GetUserById(Reviews.get(i).getUserID()).getName() + ", Comment: " +  Reviews.get(i).getComment());
         }
-        else
-            System.out.println("Review Rating  : " + ReviewRating/NoOfReviewers);
-        if (ReviewComment == null)
-        {
-            System.out.println("Review Comments: NA");
-        }
-        else
-            System.out.println("Review Comments: " + ReviewComment);
+        
+        	
         System.out.println("Runtime (Mins) : " + DurationMins);
         
 
@@ -281,5 +271,14 @@ public class Movie implements Serializable {
         for (MovieSlot i : Slots) {
                 i.setPrice(type,price);
         }
+    }
+    
+    public double getAvgRating() {
+    	double totalrating = 0;
+        for (Review review : Reviews) {
+        	totalrating += review.getRating();
+        }
+        if (Reviews.size() > 0) totalrating = totalrating / Reviews.size();
+        return totalrating;
     }
 }

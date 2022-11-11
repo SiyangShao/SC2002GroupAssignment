@@ -261,7 +261,7 @@ public class CinemaUI {
 			// check same date
 			if (oneDT.getYear() == newdt.getYear() && oneDT.getMonth() == newdt.getMonth() && oneDT.getDayOfMonth() == newdt.getDayOfMonth()) {
 				LocalTime oneDTStart = oneDT.toLocalTime();
-		        LocalTime oneDTEnd = oneDTStart.plusMinutes(movie.getDurationMins());
+		        LocalTime oneDTEnd = oneDTStart.plusMinutes(MovieManager.getInstance().getOneMovie(movieID).getDurationMins());
 		        //check start and end conflict
 		        if ((newStart.isAfter(oneDTStart) && newStart.isBefore(oneDTEnd)) || newStart.equals(oneDTStart)) {
 		        	return false;
