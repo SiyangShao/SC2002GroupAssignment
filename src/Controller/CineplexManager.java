@@ -17,6 +17,7 @@ import Utils.Config;
  */
 
 public class CineplexManager extends ManagerBase {
+
 	/**
 	 * The ArrayList which contains all the Cineplexes
 	 */
@@ -24,7 +25,7 @@ public class CineplexManager extends ManagerBase {
 	/**
 	 * The only instance of itself, CineplexManager
 	 */
-	private static CineplexManager instance;
+	private static CineplexManager instance = null;
 
 	/**
 	 * Creates a new CineplexManager
