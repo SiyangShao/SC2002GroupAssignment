@@ -6,6 +6,7 @@ import Model.Cinema;
 import Model.Cineplex;
 import Model.Movie;
 import Model.MovieSlot;
+import Utils.Config;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -96,6 +97,7 @@ public class CinemaUI {
             Cinema cinema = cineplex.getOneCinema(cinemaID);
             if (cinema == null) {
                 System.out.println("Invalid Cinema ID");
+                return;
             }
 
             System.out.println("What would you like to do?");
@@ -144,8 +146,7 @@ public class CinemaUI {
             addShowTime(cinema);
             return;
         }
-        // TODO : input base price and set for movieslot
-        MovieSlot movieslot = MovieManager.getInstance().addMovieSlot(dt, cinema, movieID, 64, 8);
+        MovieSlot movieslot = MovieManager.getInstance().addMovieSlot(dt, cinema, movieID, Config.Seats, Config.basePrice);
         if (movieslot == null) {
             System.out.println("Invalid Movie ID. Try Again");
             return;

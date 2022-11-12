@@ -11,4 +11,6 @@ public class Config {
     public static final String MovieManagerFileName = "MovieManager.dat";
     public static final String CineplexManagerFileName = "CineplexManager.dat";
     public static final String CalendarManagerFileName = "CalendarManager.dat";
+    public static int basePrice = 8;
+    public static int Seats = 64;
 }

@@ -294,8 +294,7 @@ public class MovieUI {
         }
         for (int i = 0; i < movies.size(); i++) {
             Movie oneMovie = movies.get(i);
-            if (oneMovie.getStatus() != MovieStatus.END_OF_SHOWING)
-                System.out.println(oneMovie.getMovieID() + ". " + oneMovie.getTitle());
+            System.out.println(oneMovie.getMovieID() + ". " + oneMovie.getTitle());
         }
     }
 
