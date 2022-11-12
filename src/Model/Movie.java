@@ -401,7 +401,7 @@ public class Movie implements Serializable {
      */
     public boolean querySlotExist(MovieSlot slot) {
         for (MovieSlot i : Slots) {
-            if (i == slot) {
+            if (i.getMovieSlotID() == slot.getMovieSlotID()) {
                 return true;
             }
         }

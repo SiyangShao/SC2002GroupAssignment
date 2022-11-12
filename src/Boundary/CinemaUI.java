@@ -140,7 +140,16 @@ public class CinemaUI {
         System.out.println("Enter Movie to Show");
         int movieID = sc.nextInt();
         System.out.println("Enter Movie Showtime (24 hour format)");
-        LocalDateTime dt = getInput_DateTime();
+        LocalDateTime dt = null;
+        LocalDateTime today = LocalDateTime.now();
+        do {
+            dt = getInput_DateTime();
+        } while (dt == null);
+        if (dt.isBefore(today)) {
+            System.out.println("You cannot create a timeslot before present time, Please choose another time");
+            addShowTime(cinema);
+            return;
+        }
         if (!checkDateTimeValid(dt, cinema, movieID)) {
             System.out.println("This time has already been taken, Please choose another time");
             addShowTime(cinema);

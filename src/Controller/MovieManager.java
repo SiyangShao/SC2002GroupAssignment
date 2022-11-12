@@ -201,6 +201,7 @@ public class MovieManager extends ManagerBase {
                 if (ms.getMovieSlotID() == movieSlotID) {
                     movieSlot = ms;
                     movie.removeSlot(ms);
+                    break;
                 }
             }
         }
