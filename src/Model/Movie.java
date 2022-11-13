@@ -82,7 +82,7 @@ public class Movie implements Serializable {
      * @param type  The Movie's Type.
      * @param status  The Movie Status.
      * @param movieRating  The Movie Rating.
-     * @param desc  The Movie Descriprion.
+     * @param desc  The Movie Description.
      * @param duration  The Movie's Duration.
      * @param direc  The Movie's Director.
      */
@@ -107,8 +107,7 @@ public class Movie implements Serializable {
      * @param type  The Movie's Type.
      * @param status  The Movie Status.
      * @param movieRating  The Movie Rating.
-     * @param desc  The Movie Descriprion.
-     * @param duration  The Movie's Duration.
+     * @param desc  The Movie Description.
      * @param direc  The Movie's Director.
      * @param c List of Movie's Casts.
      */
@@ -216,7 +215,7 @@ public class Movie implements Serializable {
 
     /**
      * Changes the description of the Movie.
-     * @param description This is the Movie desctiption.
+     * @param description This is the Movie description.
      */
     public void setDescription(String description) {
         Description = description;
@@ -483,7 +482,7 @@ public class Movie implements Serializable {
     }
     
     /**
-     * Gets the averge review rating of the Movie.
+     * Gets the average review rating of the Movie.
      * @return The average review rating of the Movie.
      */
     public double getAvgRating() {
