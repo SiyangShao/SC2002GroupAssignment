@@ -79,12 +79,6 @@ public class MovieSlot implements Serializable {
      */
 
     public MovieSlot(LocalDateTime datetime, int MOVIE, int CINEMA, int seat_numbers, double basePrice, DateType dateType, CinemaType cinemaType) {
-        double holidayPrice = 1.2;
-        if (dateType == DateType.HOLIDAY) {
-            basePrice *= holidayPrice;
-        } else {
-            basePrice *= normalPrice;
-        }
         switch (cinemaType) {
             case PLATINUM -> basePrice *= platinumPrice;
             case GOLD -> basePrice *= goldPrice;
